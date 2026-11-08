@@ -1,0 +1,2438 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KisanMitra AI | Smart Farming Assistant</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --green: #16834a;
+            --dark-green: #0c3925;
+            --light-green: #e9f8ef;
+            --accent: #a3e635;
+            --text: #183629;
+            --muted: #6b8074;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f4f9f5;
+            color: var(--text);
+        }
+
+        .navbar {
+            background: rgba(255,255,255,.96);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 3px 20px rgba(0,0,0,.05);
+            padding: 13px 0;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 22px;
+            color: var(--dark-green);
+        }
+
+        .brand-icon {
+            display: inline-flex;
+            width: 42px;
+            height: 42px;
+            justify-content: center;
+            align-items: center;
+            background: var(--light-green);
+            color: var(--green);
+            border-radius: 13px;
+            margin-right: 8px;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            color: #52665a;
+            margin: 0 5px;
+        }
+
+        .nav-link:hover {
+            color: var(--green);
+        }
+
+        .hero {
+            min-height: 490px;
+            display: flex;
+            align-items: center;
+            color: white;
+            background:
+                linear-gradient(100deg, rgba(5,45,26,.95), rgba(16,111,58,.76)),
+                url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=85")
+                center/cover;
+            padding: 110px 0 80px;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(255,255,255,.14);
+            border: 1px solid rgba(255,255,255,.25);
+            border-radius: 30px;
+            padding: 9px 17px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 23px;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px,6vw,65px);
+            font-weight: 800;
+            line-height: 1.15;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            color: #e0eee4;
+            font-size: 17px;
+            line-height: 1.8;
+            max-width: 600px;
+        }
+
+        .btn-main {
+            background: var(--accent);
+            color: #183629;
+            font-weight: 700;
+            padding: 13px 25px;
+            border-radius: 12px;
+            border: none;
+            transition: .3s;
+        }
+
+        .btn-main:hover {
+            background: #bef264;
+            color: #183629;
+            transform: translateY(-3px);
+        }
+
+        .btn-green {
+            background: var(--green);
+            color: white;
+            border: none;
+            padding: 13px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: .3s;
+        }
+
+        .btn-green:hover {
+            background: var(--dark-green);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .hero-stat {
+            background: rgba(255,255,255,.12);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,.18);
+            border-radius: 20px;
+            padding: 25px;
+        }
+
+        .hero-stat h3 {
+            color: var(--accent);
+            font-weight: 800;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-heading {
+            font-weight: 800;
+            color: var(--dark-green);
+            font-size: clamp(27px,4vw,38px);
+        }
+
+        .section-subtitle {
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .section-label {
+            color: var(--green);
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-weight: 800;
+        }
+
+        .feature-card {
+            height: 100%;
+            background: white;
+            border: 1px solid #e6eee8;
+            border-radius: 22px;
+            padding: 28px;
+            box-shadow: 0 8px 30px rgba(25,70,40,.045);
+            transition: .3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(25,70,40,.10);
+        }
+
+        .feature-icon {
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light-green);
+            color: var(--green);
+            border-radius: 16px;
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h4 {
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .weather-card {
+            background: linear-gradient(135deg,#0c3925,#16834a);
+            color: white;
+            border-radius: 24px;
+            padding: 30px;
+            height: 100%;
+            box-shadow: 0 15px 35px rgba(12,57,37,.15);
+        }
+
+        .weather-temperature {
+            font-size: 55px;
+            font-weight: 800;
+        }
+
+        .weather-item {
+            background: rgba(255,255,255,.12);
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 15px;
+            padding: 15px;
+            height: 100%;
+        }
+
+        .weather-item small {
+            color: #d3eadb;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #3e5949;
+        }
+
+        .form-control,
+        .form-select {
+            padding: 13px 15px;
+            border: 1px solid #dce9df;
+            border-radius: 12px;
+            background-color: #fbfdfb;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 4px rgba(22,131,74,.10);
+        }
+
+        .result-box {
+            background: var(--light-green);
+            border: 1px solid #ccebd6;
+            padding: 20px;
+            border-radius: 16px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .result-number {
+            font-size: 29px;
+            color: var(--green);
+            font-weight: 800;
+        }
+
+        .soft-bg {
+            background: #eaf5ed;
+        }
+
+        .chat-area {
+            background: #f5faf6;
+            border: 1px solid #e2eee5;
+            border-radius: 17px;
+            padding: 18px;
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+
+        .chat-message {
+            padding: 12px 15px;
+            border-radius: 14px;
+            margin-bottom: 12px;
+            max-width: 90%;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .user-message {
+            background: var(--green);
+            color: white;
+            margin-left: auto;
+        }
+
+        .ai-message {
+            background: white;
+            color: var(--text);
+            border: 1px solid #e2eee5;
+        }
+
+        .status-dot {
+            display: inline-block;
+            height: 9px;
+            width: 9px;
+            background: #a3e635;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+
+        footer {
+            background: var(--dark-green);
+            color: #d9e9de;
+            padding: 45px 0 25px;
+        }
+
+        footer a {
+            color: #d9e9de;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--accent);
+        }
+
+        @media(max-width:768px) {
+            .hero {
+                padding: 90px 0 60px;
+                text-align: center;
+            }
+
+            .hero p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg fixed-top">
+
+    <div class="container">
+
+        <a class="navbar-brand" href="#home">
+            <span class="brand-icon">
+                <i class="bi bi-flower1"></i>
+            </span>
+            KisanMitra <span style="color:#16834a;">AI</span>
+        </a>
+
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMenu">
+
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#home" data-i18n="home">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#weather" data-i18n="weather">Weather</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#water" data-i18n="waterPlanner">Water Planner</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#pest" data-i18n="pestAdvisor">Pest Advisor</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#assistant" data-i18n="aiAssistant">AI Assistant</a>
+                </li>
+
+            </ul>
+
+            <select id="languageSelect"
+                    class="form-select ms-lg-3 mt-3 mt-lg-0"
+                    style="width:auto;min-width:145px;"
+                    onchange="changeLanguage(this.value)"
+                    aria-label="Choose language">
+
+                <option value="en">🇬🇧 English</option>
+                <option value="te">తెలుగు</option>
+                <option value="hi">हिन्दी</option>
+                <option value="kn">ಕನ್ನಡ</option>
+                <option value="ta">தமிழ்</option>
+                <option value="mr">मराठी</option>
+                <option value="bn">বাংলা</option>
+
+            </select>
+
+        </div>
+    </div>
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-8">
+
+                <div class="hero-tag" data-i18n="heroTag">
+                    SMART AGRICULTURE POWERED BY AI
+                </div>
+
+                <h1>
+                    <span data-i18n="growBetter">Grow Better.</span><br>
+                    <span data-i18n="farmSmarter">Farm Smarter.</span>
+                </h1>
+
+                <p data-i18n="heroDescription">
+                    Your intelligent farming companion. Get local weather updates,
+                    plan crop irrigation, understand possible pest risks and ask AI farming questions.
+                </p>
+
+                <div class="d-flex gap-3 flex-wrap justify-content-center justify-content-lg-start mt-4">
+
+                    <a href="#weather" class="btn btn-main" data-i18n="exploreDashboard">
+                        Explore Dashboard
+                    </a>
+
+                    <a href="#assistant" class="btn btn-outline-light rounded-3 px-4 py-3 fw-bold"
+                       data-i18n="askAI">
+                        Ask KisanMitra AI
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 mt-4 mt-lg-0">
+
+                <div class="hero-stat">
+
+                    <div class="d-flex justify-content-between">
+                        <span data-i18n="farmingAssistant">Farming Assistant</span>
+                        <i class="bi bi-robot fs-4"></i>
+                    </div>
+
+                    <h3 class="mt-3" data-i18n="aiAgriculture">AI + Agriculture</h3>
+
+                    <p class="text-light mb-0" data-i18n="heroStatDescription">
+                        Making farming information easier to understand.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- FEATURES -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <div class="section-label" data-i18n="ourFeatures">Our Features</div>
+
+            <h2 class="section-heading mt-2" data-i18n="everythingFarmNeeds">
+                Everything Your Farm Needs
+            </h2>
+
+            <p class="section-subtitle" data-i18n="featureDescription">
+                Useful information for better farming decisions.
+            </p>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        <i class="bi bi-cloud-sun"></i>
+                    </div>
+
+                    <h4 data-i18n="liveWeather">Live Weather</h4>
+
+                    <p class="section-subtitle mb-0" data-i18n="weatherFeature">
+                        Check local temperature, humidity and rainfall.
+                    </p>
+
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        <i class="bi bi-droplet-half"></i>
+                    </div>
+
+                    <h4 data-i18n="waterFeatureTitle">Water Planner</h4>
+
+                    <p class="section-subtitle mb-0" data-i18n="waterFeature">
+                        Estimate irrigation requirements for different crops.
+                    </p>
+
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+
+                    <h4 data-i18n="pestFeatureTitle">Pest Screening</h4>
+
+                    <p class="section-subtitle mb-0" data-i18n="pestFeature">
+                        Screen for possible weather-related crop risks.
+                    </p>
+
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        <i class="bi bi-robot"></i>
+                    </div>
+
+                    <h4 data-i18n="aiFeatureTitle">AI Assistant</h4>
+
+                    <p class="section-subtitle mb-0" data-i18n="aiFeature">
+                        Ask questions about crops and farming practices.
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- WEATHER -->
+
+<section class="section soft-bg" id="weather">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <div class="section-label" data-i18n="localWeather">Local Weather</div>
+
+            <h2 class="section-heading mt-2" data-i18n="weatherDashboard">
+                Weather Dashboard
+            </h2>
+
+            <p class="section-subtitle" data-i18n="weatherSubtitle">
+                Search your location or use your device's location.
+            </p>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-lg-5">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        <i class="bi bi-geo-alt"></i>
+                    </div>
+
+                    <h4 data-i18n="setLocation">Set Your Location</h4>
+
+                    <label class="form-label mt-3" data-i18n="searchLocation">
+                        Search city or village
+                    </label>
+
+                    <div class="input-group">
+
+                        <input type="text" id="locationInput"
+                               class="form-control"
+                               data-i18n-placeholder="locationPlaceholder"
+                               placeholder="Example: Hyderabad">
+
+                        <button class="btn btn-green"
+                                onclick="searchLocation()"
+                                data-i18n="search">
+                            Search
+                        </button>
+
+                    </div>
+
+                    <button class="btn btn-outline-success w-100 mt-3"
+                            onclick="useGPS()"
+                            data-i18n="useGPS">
+                        Use My Current Location
+                    </button>
+
+                    <p id="locationStatus" class="small text-secondary mt-3 mb-0"
+                       data-i18n="noLocation">
+                        No location selected yet.
+                    </p>
+
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+
+                <div class="weather-card">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+                            <small class="text-light" data-i18n="currentWeather">
+                                CURRENT WEATHER
+                            </small>
+
+                            <h4 id="weatherLocation" class="mt-2">
+                                Select a location
+                            </h4>
+                        </div>
+
+                        <i class="bi bi-cloud-sun fs-1"></i>
+
+                    </div>
+
+                    <div class="weather-temperature mt-3">
+                        <span id="temperature">--</span>°
+                    </div>
+
+                    <p id="weatherDescription" class="text-light">
+                        Waiting for weather data...
+                    </p>
+
+                    <div class="row g-3 mt-3">
+
+                        <div class="col-6 col-md-3">
+                            <div class="weather-item">
+                                <i class="bi bi-droplet"></i>
+                                <h5 id="humidity" class="mt-2">--</h5>
+                                <small data-i18n="humidity">Humidity</small>
+                            </div>
+                        </div>
+
+                        <div class="col-6 col-md-3">
+                            <div class="weather-item">
+                                <i class="bi bi-cloud-rain"></i>
+                                <h5 id="rainfall" class="mt-2">--</h5>
+                                <small data-i18n="rainfall">Rainfall</small>
+                            </div>
+                        </div>
+
+                        <div class="col-6 col-md-3">
+                            <div class="weather-item">
+                                <i class="bi bi-wind"></i>
+                                <h5 id="wind" class="mt-2">--</h5>
+                                <small data-i18n="windSpeed">Wind speed</small>
+                            </div>
+                        </div>
+
+                        <div class="col-6 col-md-3">
+                            <div class="weather-item">
+                                <i class="bi bi-thermometer-half"></i>
+                                <h5 id="et0" class="mt-2">--</h5>
+                                <small data-i18n="dailyET0">Daily ET₀</small>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <p class="small text-light mt-3 mb-0" id="weatherUpdated">
+                        Weather information supplied by Open-Meteo.
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- WATER PLANNER -->
+
+<section class="section" id="water">
+
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-5">
+
+                <div class="section-label" data-i18n="smartIrrigation">
+                    Smart Irrigation
+                </div>
+
+                <h2 class="section-heading mt-2" data-i18n="cropWaterRequirement">
+                    Crop Water Requirement
+                </h2>
+
+                <p class="section-subtitle mt-3" data-i18n="waterIntro">
+                    Estimate how much irrigation water your crop may need using
+                    crop stage, local weather and farm area.
+                </p>
+
+                <div class="feature-card mt-4">
+
+                    <div class="feature-icon">
+                        <i class="bi bi-droplet"></i>
+                    </div>
+
+                    <h4 data-i18n="whyPlanner">Why use this planner?</h4>
+
+                    <p class="section-subtitle mb-0" data-i18n="plannerDescription">
+                        It uses reference evapotranspiration and crop coefficients
+                        to estimate crop water demand. Effective rainfall is also considered.
+                    </p>
+
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+
+                <div class="feature-card">
+
+                    <h4 class="mb-4" data-i18n="calculateWaterHeading">
+                        Calculate Water Requirement
+                    </h4>
+
+                    <div class="mb-3">
+
+                        <label class="form-label" data-i18n="selectCrop">
+                            Select Crop
+                        </label>
+
+                        <select class="form-select" id="crop">
+
+                            <option value="rice" data-i18n="rice">Rice / Paddy</option>
+                            <option value="wheat" data-i18n="wheat">Wheat</option>
+                            <option value="maize" data-i18n="maize">Maize</option>
+                            <option value="cotton" data-i18n="cotton">Cotton</option>
+                            <option value="sugarcane" data-i18n="sugarcane">Sugarcane</option>
+                            <option value="groundnut" data-i18n="groundnut">Groundnut</option>
+                            <option value="soybean" data-i18n="soybean">Soybean</option>
+                            <option value="tomato" data-i18n="tomato">Tomato</option>
+                            <option value="chilli" data-i18n="chilli">Chilli</option>
+                            <option value="onion" data-i18n="onion">Onion</option>
+                            <option value="potato" data-i18n="potato">Potato</option>
+                            <option value="banana" data-i18n="banana">Banana</option>
+                            <option value="chickpea" data-i18n="chickpea">Chickpea</option>
+                            <option value="okra" data-i18n="okra">Okra</option>
+
+                        </select>
+                    </div>
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+
+                            <label class="form-label" data-i18n="farmArea">
+                                Farm Area (acres)
+                            </label>
+
+                            <input type="number" id="area"
+                                   class="form-control"
+                                   min="0.01" step="0.01" value="1">
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label" data-i18n="cropStage">
+                                Crop Stage
+                            </label>
+
+                            <select id="stage" class="form-select">
+
+                                <option value="0" data-i18n="initialStage">Initial Stage</option>
+                                <option value="1" data-i18n="developmentStage">Development Stage</option>
+                                <option value="2" selected data-i18n="midStage">Mid-season Stage</option>
+                                <option value="3" data-i18n="lateStage">Late Season Stage</option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="col-12">
+
+                            <label class="form-label" data-i18n="irrigationMethod">
+                                Irrigation Method
+                            </label>
+
+                            <select id="method" class="form-select">
+
+                                <option value="drip" data-i18n="drip">Drip Irrigation</option>
+                                <option value="sprinkler" data-i18n="sprinkler">Sprinkler Irrigation</option>
+                                <option value="surface" data-i18n="surface">Surface / Flood Irrigation</option>
+
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <button class="btn btn-green w-100 mt-4"
+                            onclick="calculateWater()"
+                            data-i18n="calculateWater">
+                        Calculate Water
+                    </button>
+
+                    <div id="waterResult" class="result-box"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- PEST SCREENING -->
+
+<section class="section soft-bg" id="pest">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <div class="section-label" data-i18n="cropProtection">
+                Crop Protection
+            </div>
+
+            <h2 class="section-heading mt-2" data-i18n="pestScreening">
+                Pest & Disease Screening
+            </h2>
+
+            <p class="section-subtitle" data-i18n="pestSubtitle">
+                Check possible crop risks using local weather and symptoms.
+            </p>
+
+        </div>
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-8">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+
+                    <h4 data-i18n="checkYourCrop">Check Your Crop</h4>
+
+                    <div class="row g-3 mt-2">
+
+                        <div class="col-md-6">
+
+                            <label class="form-label" data-i18n="selectCrop">
+                                Select Crop
+                            </label>
+
+                            <select id="pestCrop" class="form-select">
+
+                                <option value="rice" data-i18n="rice">Rice</option>
+                                <option value="wheat" data-i18n="wheat">Wheat</option>
+                                <option value="maize" data-i18n="maize">Maize</option>
+                                <option value="cotton" data-i18n="cotton">Cotton</option>
+                                <option value="groundnut" data-i18n="groundnut">Groundnut</option>
+                                <option value="tomato" data-i18n="tomato">Tomato</option>
+                                <option value="chilli" data-i18n="chilli">Chilli</option>
+                                <option value="onion" data-i18n="onion">Onion</option>
+                                <option value="potato" data-i18n="potato">Potato</option>
+                                <option value="banana" data-i18n="banana">Banana</option>
+                                <option value="okra" data-i18n="okra">Okra</option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label" data-i18n="observedSymptom">
+                                Observed Symptom
+                            </label>
+
+                            <select id="symptom" class="form-select">
+
+                                <option value="unknown" data-i18n="unknown">Not sure</option>
+                                <option value="holes" data-i18n="holes">Holes in leaves</option>
+                                <option value="yellowing" data-i18n="yellowing">Yellow leaves</option>
+                                <option value="spots" data-i18n="spots">Spots on leaves</option>
+                                <option value="insects" data-i18n="insects">Visible insects</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <button class="btn btn-green w-100 mt-4"
+                            onclick="diagnosePest()"
+                            data-i18n="screenRisk">
+                        Screen Crop Risk
+                    </button>
+
+                    <div id="pestResult" class="result-box"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- AI ASSISTANT -->
+
+<section class="section" id="assistant">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <div class="section-label" data-i18n="poweredByAI">
+                Powered by AI
+            </div>
+
+            <h2 class="section-heading mt-2" data-i18n="askKisanMitra">
+                Ask KisanMitra AI
+            </h2>
+
+            <p class="section-subtitle" data-i18n="aiSubtitle">
+                Your farming questions, explained in simple language.
+            </p>
+
+        </div>
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-8">
+
+                <div class="feature-card">
+
+                    <div class="d-flex align-items-center gap-3 mb-4">
+
+                        <div class="feature-icon mb-0">
+                            <i class="bi bi-robot"></i>
+                        </div>
+
+                        <div>
+                            <h4 class="mb-1" data-i18n="aiAssistantTitle">
+                                KisanMitra AI Assistant
+                            </h4>
+
+                            <small class="text-success" data-i18n="assistantStatus">
+                                <span class="status-dot"></span>
+                                Farming support assistant
+                            </small>
+                        </div>
+
+                    </div>
+
+                    <div class="chat-area" id="chatArea">
+
+                        <div class="chat-message ai-message" data-i18n="welcomeMessage">
+                            Namaste! I am KisanMitra AI. Ask me about crops,
+                            irrigation, weather, soil and farming practices.
+                        </div>
+
+                    </div>
+
+                    <label class="form-label" data-i18n="yourQuestion">
+                        Your Question
+                    </label>
+
+                    <textarea id="aiQuestion"
+                              class="form-control"
+                              rows="3"
+                              data-i18n-placeholder="questionPlaceholder"
+                              placeholder="Ask your farming question..."></textarea>
+
+                    <button class="btn btn-green w-100 mt-3"
+                            id="askButton"
+                            onclick="askAI()"
+                            data-i18n="askAI">
+                        Ask KisanMitra AI
+                    </button>
+
+                    <p class="small text-secondary mt-3 mb-0" data-i18n="aiDisclaimer">
+                        AI answers are informational. Verify important crop-treatment
+                        decisions with a local agricultural expert.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="container">
+
+        <div class="row g-4">
+
+            <div class="col-lg-6">
+
+                <h3 class="fw-bold text-white">
+                    <i class="bi bi-flower1 text-success"></i>
+                    KisanMitra AI
+                </h3>
+
+                <p class="mt-3" data-i18n="footerDescription">
+                    Helping farmers access useful agricultural information through technology.
+                </p>
+
+            </div>
+
+            <div class="col-lg-3">
+
+                <h6 class="text-white fw-bold" data-i18n="quickLinks">Quick Links</h6>
+
+                <p><a href="#home" data-i18n="home">Home</a></p>
+                <p><a href="#weather" data-i18n="weather">Weather</a></p>
+                <p><a href="#water" data-i18n="waterPlanner">Water Planner</a></p>
+
+            </div>
+
+            <div class="col-lg-3">
+
+                <h6 class="text-white fw-bold" data-i18n="more">More</h6>
+
+                <p><a href="#pest" data-i18n="pestAdvisor">Pest Advisor</a></p>
+                <p><a href="#assistant" data-i18n="aiAssistant">AI Assistant</a></p>
+
+            </div>
+
+        </div>
+
+        <hr class="border-secondary mt-4">
+
+        <p class="text-center small mb-0" data-i18n="copyright">
+            © 2026 KisanMitra AI. Built for smarter farming.
+        </p>
+
+    </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+
+/* =====================================
+   1. TRANSLATION DATABASE
+===================================== */
+
+const translations = {
+
+en: {
+    home:"Home", weather:"Weather", waterPlanner:"Water Planner",
+    pestAdvisor:"Pest Advisor", aiAssistant:"AI Assistant",
+    heroTag:"SMART AGRICULTURE POWERED BY AI",
+    growBetter:"Grow Better.", farmSmarter:"Farm Smarter.",
+    heroDescription:"Your intelligent farming companion. Get local weather updates, plan crop irrigation, understand possible pest risks and ask AI farming questions.",
+    exploreDashboard:"Explore Dashboard",
+    farmingAssistant:"Farming Assistant", aiAgriculture:"AI + Agriculture",
+    heroStatDescription:"Making farming information easier to understand.",
+    ourFeatures:"Our Features", everythingFarmNeeds:"Everything Your Farm Needs",
+    featureDescription:"Useful information for better farming decisions.",
+    liveWeather:"Live Weather", weatherFeature:"Check local temperature, humidity and rainfall.",
+    waterFeatureTitle:"Water Planner", waterFeature:"Estimate irrigation requirements for different crops.",
+    pestFeatureTitle:"Pest Screening", pestFeature:"Screen for possible weather-related crop risks.",
+    aiFeatureTitle:"AI Assistant", aiFeature:"Ask questions about crops and farming practices.",
+    localWeather:"Local Weather", weatherDashboard:"Weather Dashboard",
+    weatherSubtitle:"Search your location or use your device's location.",
+    setLocation:"Set Your Location", searchLocation:"Search city or village",
+    search:"Search", useGPS:"Use My Current Location",
+    noLocation:"No location selected yet.", currentWeather:"CURRENT WEATHER",
+    humidity:"Humidity", rainfall:"Rainfall", windSpeed:"Wind speed",
+    dailyET0:"Daily ET₀", smartIrrigation:"Smart Irrigation",
+    cropWaterRequirement:"Crop Water Requirement",
+    waterIntro:"Estimate how much irrigation water your crop may need using crop stage, local weather and farm area.",
+    whyPlanner:"Why use this planner?",
+    plannerDescription:"It uses reference evapotranspiration and crop coefficients to estimate crop water demand. Effective rainfall is also considered.",
+    calculateWaterHeading:"Calculate Water Requirement",
+    selectCrop:"Select Crop", rice:"Rice / Paddy", wheat:"Wheat",
+    maize:"Maize", cotton:"Cotton", sugarcane:"Sugarcane",
+    groundnut:"Groundnut", soybean:"Soybean", tomato:"Tomato",
+    chilli:"Chilli", onion:"Onion", potato:"Potato",
+    banana:"Banana", chickpea:"Chickpea", okra:"Okra",
+    farmArea:"Farm Area (acres)", cropStage:"Crop Stage",
+    initialStage:"Initial Stage", developmentStage:"Development Stage",
+    midStage:"Mid-season Stage", lateStage:"Late Season Stage",
+    irrigationMethod:"Irrigation Method", drip:"Drip Irrigation",
+    sprinkler:"Sprinkler Irrigation", surface:"Surface / Flood Irrigation",
+    calculateWater:"Calculate Water", cropProtection:"Crop Protection",
+    pestScreening:"Pest & Disease Screening",
+    pestSubtitle:"Check possible crop risks using local weather and symptoms.",
+    checkYourCrop:"Check Your Crop", observedSymptom:"Observed Symptom",
+    unknown:"Not sure", holes:"Holes in leaves",
+    yellowing:"Yellow leaves", spots:"Spots on leaves",
+    insects:"Visible insects", screenRisk:"Screen Crop Risk",
+    poweredByAI:"Powered by AI", askKisanMitra:"Ask KisanMitra AI",
+    aiSubtitle:"Your farming questions, explained in simple language.",
+    aiAssistantTitle:"KisanMitra AI Assistant",
+    assistantStatus:"Farming support assistant", yourQuestion:"Your Question",
+    questionPlaceholder:"Ask your farming question...",
+    askAI:"Ask KisanMitra AI",
+    aiDisclaimer:"AI answers are informational. Verify important crop-treatment decisions with a local agricultural expert.",
+    footerDescription:"Helping farmers access useful agricultural information through technology.",
+    quickLinks:"Quick Links", more:"More",
+    copyright:"© 2026 KisanMitra AI. Built for smarter farming.",
+    locationPlaceholder:"Example: Hyderabad",
+    waitingWeather:"Waiting for weather data...",
+    weatherSource:"Weather information supplied by Open-Meteo.",
+    noData:"Weather data unavailable",
+    searchError:"Could not find this location.",
+    loadingWeather:"Loading local weather...",
+    locationLoaded:"Weather loaded successfully.",
+    gpsError:"Location permission was denied or unavailable. Try searching manually.",
+    gpsLoading:"Getting your location...",
+    gpsUnsupported:"GPS is not supported by this browser.",
+    enterLocation:"Please enter a city or village name.",
+    enterArea:"Enter a valid farm area.",
+    selectLocationFirst:"Please select a location and load weather first.",
+    missingWeather:"Required daily weather data is unavailable.",
+    waterResult:"Estimated Water Requirement",
+    litres:"litres",
+    estimatedFor:"Estimated gross irrigation water for the selected day.",
+    et0Label:"Reference ET₀",
+    kcLabel:"Crop coefficient (Kc)",
+    etcLabel:"Estimated crop water use (ETc)",
+    effectiveRainLabel:"Estimated effective rainfall",
+    netIrrigationLabel:"Estimated net irrigation",
+    estimateNote:"This is an approximate educational estimate, not a guaranteed irrigation recommendation. Soil, crop variety, local conditions, rainfall and irrigation scheduling can change actual requirements.",
+    pestResultTitle:"Crop Screening Result",
+    cropLabel:"Crop", symptomLabel:"Observed symptom",
+    weatherScreening:"Weather screening",
+    moistureRisk:"Conditions may favour some moisture-related crop diseases.",
+    moistureAdvice:"Inspect leaves and stems for unusual symptoms. Ask a local agricultural expert before choosing a treatment.",
+    humidityRisk:"Elevated humidity-related monitoring priority.",
+    humidityAdvice:"Monitor your crop for leaf spots and other unusual symptoms.",
+    heatRisk:"Hot and relatively dry conditions.",
+    heatAdvice:"Monitor crops for heat and water stress. Check soil moisture.",
+    normalRisk:"No simple weather warning detected.",
+    normalAdvice:"Continue routine crop monitoring. This does not mean your crop is pest-free.",
+    insufficientRisk:"Insufficient information",
+    insufficientAdvice:"Please check your crop regularly and consult a local agricultural expert.",
+    warning:"Weather and symptoms cannot confirm a pest or disease. Get the crop checked by a local KVK or agricultural expert before choosing a treatment.",
+    aiWelcome:"Namaste! I am KisanMitra AI. Ask me about crops, irrigation, weather, soil and farming practices.",
+    aiThinking:"Thinking...",
+    aiError:"Sorry, I could not connect to the AI service. Check your server, API key and model configuration.",
+    noQuestion:"Please enter your question."
+},
+
+te: {
+    home:"హోమ్", weather:"వాతావరణం", waterPlanner:"నీటి ప్రణాళిక",
+    pestAdvisor:"తెగుళ్ల సలహా", aiAssistant:"AI సహాయకుడు",
+    heroTag:"AI ఆధారిత స్మార్ట్ వ్యవసాయం",
+    growBetter:"మెరుగ్గా పండించండి.", farmSmarter:"తెలివిగా వ్యవసాయం చేయండి.",
+    heroDescription:"మీ తెలివైన వ్యవసాయ సహాయకుడు. స్థానిక వాతావరణం తెలుసుకోండి, నీటి అవసరాన్ని అంచనా వేయండి మరియు పంట సమస్యలను పరిశీలించండి.",
+    exploreDashboard:"డ్యాష్‌బోర్డ్ చూడండి",
+    farmingAssistant:"వ్యవసాయ సహాయకుడు", aiAgriculture:"AI + వ్యవసాయం",
+    heroStatDescription:"వ్యవసాయ సమాచారాన్ని సులభంగా అర్థం చేసుకోండి.",
+    ourFeatures:"మా ప్రత్యేకతలు", everythingFarmNeeds:"మీ పొలానికి అవసరమైనవి",
+    featureDescription:"మెరుగైన వ్యవసాయ నిర్ణయాలకు ఉపయోగకరమైన సమాచారం.",
+    liveWeather:"ప్రస్తుత వాతావరణం", weatherFeature:"స్థానిక ఉష్ణోగ్రత, తేమ మరియు వర్షపాతం తెలుసుకోండి.",
+    waterFeatureTitle:"నీటి ప్రణాళిక", waterFeature:"వివిధ పంటలకు నీటి అవసరాన్ని అంచనా వేయండి.",
+    pestFeatureTitle:"తెగుళ్ల పరిశీలన", pestFeature:"వాతావరణ సంబంధిత పంట ప్రమాదాలను పరిశీలించండి.",
+    aiFeatureTitle:"AI సహాయకుడు", aiFeature:"పంటలు మరియు వ్యవసాయం గురించి ప్రశ్నలు అడగండి.",
+    localWeather:"స్థానిక వాతావరణం", weatherDashboard:"వాతావరణ డ్యాష్‌బోర్డ్",
+    weatherSubtitle:"మీ ప్రాంతాన్ని వెతకండి లేదా ప్రస్తుత స్థానాన్ని ఉపయోగించండి.",
+    setLocation:"మీ ప్రాంతాన్ని ఎంచుకోండి", searchLocation:"నగరం లేదా గ్రామం పేరు",
+    search:"వెతకండి", useGPS:"నా ప్రస్తుత స్థానాన్ని ఉపయోగించండి",
+    noLocation:"ఇంకా ప్రాంతాన్ని ఎంచుకోలేదు.", currentWeather:"ప్రస్తుత వాతావరణం",
+    humidity:"తేమ", rainfall:"వర్షపాతం", windSpeed:"గాలి వేగం",
+    dailyET0:"రోజువారీ ET₀", smartIrrigation:"స్మార్ట్ నీటిపారుదల",
+    cropWaterRequirement:"పంట నీటి అవసరం",
+    waterIntro:"పంట దశ, స్థానిక వాతావరణం మరియు పొలం విస్తీర్ణం ఆధారంగా నీటి అవసరాన్ని అంచనా వేయండి.",
+    whyPlanner:"ఈ ప్రణాళిక ఎందుకు?",
+    plannerDescription:"పంట నీటి అవసరాన్ని అంచనా వేయడానికి ET₀ మరియు పంట గుణకాలను ఉపయోగిస్తుంది. వర్షపు నీటిని కూడా పరిగణనలోకి తీసుకుంటుంది.",
+    calculateWaterHeading:"నీటి అవసరాన్ని లెక్కించండి",
+    selectCrop:"పంటను ఎంచుకోండి", rice:"వరి", wheat:"గోధుమ",
+    maize:"మొక్కజొన్న", cotton:"పత్తి", sugarcane:"చెరకు",
+    groundnut:"వేరుశనగ", soybean:"సోయాబీన్", tomato:"టమాటా",
+    chilli:"మిరప", onion:"ఉల్లిపాయ", potato:"బంగాళాదుంప",
+    banana:"అరటి", chickpea:"శనగ", okra:"బెండకాయ",
+    farmArea:"పొలం విస్తీర్ణం (ఎకరాలు)", cropStage:"పంట దశ",
+    initialStage:"ప్రారంభ దశ", developmentStage:"పెరుగుదల దశ",
+    midStage:"మధ్య దశ", lateStage:"చివరి దశ",
+    irrigationMethod:"నీటిపారుదల విధానం", drip:"బిందు సేద్యం",
+    sprinkler:"తుంపర సేద్యం", surface:"కాలువ / వరద సేద్యం",
+    calculateWater:"నీటి అవసరాన్ని లెక్కించండి", cropProtection:"పంట రక్షణ",
+    pestScreening:"తెగుళ్లు మరియు వ్యాధుల పరిశీలన",
+    pestSubtitle:"స్థానిక వాతావరణం మరియు లక్షణాల ఆధారంగా పంట ప్రమాదాలను పరిశీలించండి.",
+    checkYourCrop:"మీ పంటను పరిశీలించండి", observedSymptom:"గమనించిన లక్షణం",
+    unknown:"తెలియదు", holes:"ఆకులలో రంధ్రాలు",
+    yellowing:"పసుపు ఆకులు", spots:"ఆకులపై మచ్చలు",
+    insects:"కనిపించే పురుగులు", screenRisk:"పంట ప్రమాదాన్ని పరిశీలించండి",
+    poweredByAI:"AI ఆధారితం", askKisanMitra:"కిసాన్‌మిత్ర AIని అడగండి",
+    aiSubtitle:"మీ వ్యవసాయ ప్రశ్నలకు సులభమైన సమాధానాలు.",
+    aiAssistantTitle:"కిసాన్‌మిత్ర AI సహాయకుడు",
+    assistantStatus:"వ్యవసాయ సహాయకుడు", yourQuestion:"మీ ప్రశ్న",
+    questionPlaceholder:"మీ వ్యవసాయ ప్రశ్నను అడగండి...",
+    askAI:"కిసాన్‌మిత్ర AIని అడగండి",
+    aiDisclaimer:"AI సమాధానాలు సమాచార ప్రయోజనాల కోసం మాత్రమే. ముఖ్యమైన పంట చికిత్స నిర్ణయాలను స్థానిక వ్యవసాయ నిపుణుడితో నిర్ధారించండి.",
+    footerDescription:"సాంకేతికత ద్వారా రైతులకు ఉపయోగకరమైన వ్యవసాయ సమాచారాన్ని అందించడం.",
+    quickLinks:"త్వరిత లింకులు", more:"మరిన్ని",
+    copyright:"© 2026 కిసాన్‌మిత్ర AI. మెరుగైన వ్యవసాయం కోసం.",
+    locationPlaceholder:"ఉదాహరణ: హైదరాబాద్",
+    waitingWeather:"వాతావరణ సమాచారం కోసం వేచి ఉంది...",
+    weatherSource:"వాతావరణ సమాచారం Open-Meteo నుండి.",
+    noData:"వాతావరణ సమాచారం అందుబాటులో లేదు",
+    searchError:"ఈ ప్రాంతం కనుగొనబడలేదు.",
+    loadingWeather:"స్థానిక వాతావరణం లోడ్ అవుతోంది...",
+    locationLoaded:"వాతావరణ సమాచారం అందింది.",
+    gpsError:"స్థాన అనుమతి లేదు. దయచేసి ప్రాంతం పేరుతో వెతకండి.",
+    gpsLoading:"మీ స్థానాన్ని పొందుతోంది...",
+    gpsUnsupported:"ఈ బ్రౌజర్‌లో GPS అందుబాటులో లేదు.",
+    enterLocation:"నగరం లేదా గ్రామం పేరును నమోదు చేయండి.",
+    enterArea:"సరైన పొలం విస్తీర్ణాన్ని నమోదు చేయండి.",
+    selectLocationFirst:"ముందుగా మీ ప్రాంత వాతావరణాన్ని పొందండి.",
+    missingWeather:"అవసరమైన రోజువారీ వాతావరణ సమాచారం లేదు.",
+    waterResult:"అంచనా నీటి అవసరం",
+    litres:"లీటర్లు",
+    estimatedFor:"ఎంచుకున్న రోజుకు అంచనా నీటి పరిమాణం.",
+    et0Label:"ET₀", kcLabel:"పంట గుణకం (Kc)",
+    etcLabel:"పంట నీటి వినియోగం (ETc)",
+    effectiveRainLabel:"ప్రభావవంతమైన వర్షపాతం",
+    netIrrigationLabel:"నికర నీటి అవసరం",
+    estimateNote:"ఇది విద్యాపరమైన సుమారు అంచనా మాత్రమే. వాస్తవ నీటి అవసరం నేల, పంట రకం, వాతావరణం మరియు నీటిపారుదల పద్ధతిపై ఆధారపడి ఉంటుంది.",
+    pestResultTitle:"పంట పరిశీలన ఫలితం", cropLabel:"పంట",
+    symptomLabel:"గమనించిన లక్షణం", weatherScreening:"వాతావరణ పరిశీలన",
+    moistureRisk:"తేమ సంబంధిత పంట వ్యాధులకు అనుకూల పరిస్థితులు ఉండవచ్చు.",
+    moistureAdvice:"ఆకులు మరియు కాండాలను పరిశీలించండి. చికిత్సకు ముందు వ్యవసాయ నిపుణుడిని సంప్రదించండి.",
+    humidityRisk:"అధిక తేమ కారణంగా పంటను జాగ్రత్తగా పరిశీలించండి.",
+    humidityAdvice:"ఆకులపై మచ్చలు మరియు ఇతర లక్షణాలను గమనించండి.",
+    heatRisk:"వేడి మరియు పొడి వాతావరణ పరిస్థితులు.",
+    heatAdvice:"పంటలో వేడి మరియు నీటి ఒత్తిడిని పరిశీలించండి.",
+    normalRisk:"సాధారణ వాతావరణ హెచ్చరిక గుర్తించబడలేదు.",
+    normalAdvice:"పంటను క్రమం తప్పకుండా పరిశీలించండి. ఇది తెగుళ్లు లేవని నిర్ధారించదు.",
+    insufficientRisk:"సరిపడా సమాచారం లేదు",
+    insufficientAdvice:"పంటను క్రమం తప్పకుండా పరిశీలించి వ్యవసాయ నిపుణుడిని సంప్రదించండి.",
+    warning:"వాతావరణం మరియు లక్షణాలు మాత్రమే వ్యాధిని నిర్ధారించలేవు. చికిత్సకు ముందు KVK లేదా వ్యవసాయ నిపుణుడిని సంప్రదించండి.",
+    aiWelcome:"నమస్కారం! నేను కిసాన్‌మిత్ర AI. పంటలు, నీటిపారుదల, వాతావరణం మరియు వ్యవసాయం గురించి అడగండి.",
+    aiThinking:"సమాధానం సిద్ధమవుతోంది...",
+    aiError:"AI సేవకు కనెక్ట్ కాలేకపోయాము. సర్వర్ మరియు API సెట్టింగులను తనిఖీ చేయండి.",
+    noQuestion:"దయచేసి మీ ప్రశ్నను నమోదు చేయండి."
+},
+
+hi: {
+    home:"होम", weather:"मौसम", waterPlanner:"सिंचाई योजना",
+    pestAdvisor:"कीट सलाह", aiAssistant:"AI सहायक",
+    heroTag:"AI द्वारा संचालित स्मार्ट खेती",
+    growBetter:"बेहतर उगाएँ।", farmSmarter:"समझदारी से खेती करें।",
+    heroDescription:"आपका स्मार्ट खेती सहायक। स्थानीय मौसम जानें, सिंचाई की योजना बनाएँ और फसल के संभावित जोखिमों की जाँच करें।",
+    exploreDashboard:"डैशबोर्ड देखें",
+    farmingAssistant:"खेती सहायक", aiAgriculture:"AI + कृषि",
+    heroStatDescription:"खेती की जानकारी को आसानी से समझें।",
+    ourFeatures:"हमारी सुविधाएँ", everythingFarmNeeds:"आपके खेत के लिए ज़रूरी सुविधाएँ",
+    featureDescription:"बेहतर खेती के निर्णयों के लिए उपयोगी जानकारी।",
+    liveWeather:"मौसम जानकारी", weatherFeature:"स्थानीय तापमान, नमी और वर्षा देखें।",
+    waterFeatureTitle:"सिंचाई योजना", waterFeature:"अलग-अलग फसलों की पानी की आवश्यकता का अनुमान लगाएँ।",
+    pestFeatureTitle:"कीट जाँच", pestFeature:"मौसम से जुड़े संभावित फसल जोखिमों की जाँच करें।",
+    aiFeatureTitle:"AI सहायक", aiFeature:"फसलों और खेती के बारे में सवाल पूछें।",
+    localWeather:"स्थानीय मौसम", weatherDashboard:"मौसम डैशबोर्ड",
+    weatherSubtitle:"अपना स्थान खोजें या वर्तमान लोकेशन का उपयोग करें।",
+    setLocation:"अपना स्थान चुनें", searchLocation:"शहर या गाँव खोजें",
+    search:"खोजें", useGPS:"मेरी वर्तमान लोकेशन का उपयोग करें",
+    noLocation:"अभी कोई स्थान नहीं चुना गया।", currentWeather:"वर्तमान मौसम",
+    humidity:"नमी", rainfall:"वर्षा", windSpeed:"हवा की गति",
+    dailyET0:"दैनिक ET₀", smartIrrigation:"स्मार्ट सिंचाई",
+    cropWaterRequirement:"फसल की पानी की आवश्यकता",
+    waterIntro:"फसल की अवस्था, स्थानीय मौसम और खेत के क्षेत्र के आधार पर पानी की आवश्यकता का अनुमान लगाएँ।",
+    whyPlanner:"इस योजना का उपयोग क्यों करें?",
+    plannerDescription:"यह फसल की पानी की आवश्यकता का अनुमान लगाने के लिए ET₀ और फसल गुणांक का उपयोग करता है। प्रभावी वर्षा को भी ध्यान में रखा जाता है।",
+    calculateWaterHeading:"पानी की आवश्यकता की गणना करें",
+    selectCrop:"फसल चुनें", rice:"धान", wheat:"गेहूँ",
+    maize:"मक्का", cotton:"कपास", sugarcane:"गन्ना",
+    groundnut:"मूँगफली", soybean:"सोयाबीन", tomato:"टमाटर",
+    chilli:"मिर्च", onion:"प्याज", potato:"आलू",
+    banana:"केला", chickpea:"चना", okra:"भिंडी",
+    farmArea:"खेत का क्षेत्रफल (एकड़)", cropStage:"फसल की अवस्था",
+    initialStage:"प्रारंभिक अवस्था", developmentStage:"विकास अवस्था",
+    midStage:"मध्य अवस्था", lateStage:"अंतिम अवस्था",
+    irrigationMethod:"सिंचाई का तरीका", drip:"ड्रिप सिंचाई",
+    sprinkler:"स्प्रिंकलर सिंचाई", surface:"सतही / बाढ़ सिंचाई",
+    calculateWater:"पानी की गणना करें", cropProtection:"फसल सुरक्षा",
+    pestScreening:"कीट और रोग की जाँच",
+    pestSubtitle:"स्थानीय मौसम और लक्षणों से संभावित फसल जोखिमों की जाँच करें।",
+    checkYourCrop:"अपनी फसल की जाँच करें", observedSymptom:"दिखाई देने वाला लक्षण",
+    unknown:"पता नहीं", holes:"पत्तियों में छेद",
+    yellowing:"पीली पत्तियाँ", spots:"पत्तियों पर धब्बे",
+    insects:"दिखाई देने वाले कीड़े", screenRisk:"फसल के जोखिम की जाँच करें",
+    poweredByAI:"AI द्वारा संचालित", askKisanMitra:"किसानमित्र AI से पूछें",
+    aiSubtitle:"खेती से जुड़े सवालों के सरल जवाब।",
+    aiAssistantTitle:"किसानमित्र AI सहायक",
+    assistantStatus:"खेती सहायता सहायक", yourQuestion:"आपका सवाल",
+    questionPlaceholder:"अपना खेती से जुड़ा सवाल पूछें...",
+    askAI:"किसानमित्र AI से पूछें",
+    aiDisclaimer:"AI के जवाब केवल जानकारी के लिए हैं। फसल उपचार के महत्वपूर्ण निर्णय स्थानीय कृषि विशेषज्ञ से जाँचें।",
+    footerDescription:"तकनीक के माध्यम से किसानों तक उपयोगी कृषि जानकारी पहुँचाना।",
+    quickLinks:"त्वरित लिंक", more:"और जानकारी",
+    copyright:"© 2026 किसानमित्र AI. बेहतर खेती के लिए।",
+    locationPlaceholder:"उदाहरण: हैदराबाद",
+    waitingWeather:"मौसम की जानकारी की प्रतीक्षा है...",
+    weatherSource:"मौसम की जानकारी Open-Meteo से।",
+    noData:"मौसम की जानकारी उपलब्ध नहीं है",
+    searchError:"यह स्थान नहीं मिला।",
+    loadingWeather:"स्थानीय मौसम लोड हो रहा है...",
+    locationLoaded:"मौसम की जानकारी मिल गई।",
+    gpsError:"लोकेशन की अनुमति नहीं मिली। स्थान का नाम खोजें।",
+    gpsLoading:"आपकी लोकेशन प्राप्त की जा रही है...",
+    gpsUnsupported:"इस ब्राउज़र में GPS उपलब्ध नहीं है।",
+    enterLocation:"शहर या गाँव का नाम दर्ज करें।",
+    enterArea:"खेत का सही क्षेत्रफल दर्ज करें।",
+    selectLocationFirst:"पहले अपने स्थान का मौसम लोड करें।",
+    missingWeather:"आवश्यक दैनिक मौसम जानकारी उपलब्ध नहीं है।",
+    waterResult:"अनुमानित पानी की आवश्यकता",
+    litres:"लीटर",
+    estimatedFor:"चुने गए दिन के लिए अनुमानित सिंचाई पानी।",
+    et0Label:"ET₀", kcLabel:"फसल गुणांक (Kc)",
+    etcLabel:"फसल जल उपयोग (ETc)",
+    effectiveRainLabel:"प्रभावी वर्षा",
+    netIrrigationLabel:"शुद्ध सिंचाई आवश्यकता",
+    estimateNote:"यह केवल एक अनुमान है, निश्चित सिंचाई सलाह नहीं। वास्तविक आवश्यकता मिट्टी, फसल की किस्म, मौसम और सिंचाई विधि पर निर्भर करती है।",
+    pestResultTitle:"फसल जाँच परिणाम", cropLabel:"फसल",
+    symptomLabel:"दिखाई देने वाला लक्षण", weatherScreening:"मौसम जाँच",
+    moistureRisk:"नमी से संबंधित कुछ फसल रोगों के लिए अनुकूल परिस्थितियाँ हो सकती हैं।",
+    moistureAdvice:"पत्तियों और तनों की जाँच करें। उपचार चुनने से पहले कृषि विशेषज्ञ से पूछें।",
+    humidityRisk:"अधिक नमी के कारण फसल की निगरानी आवश्यक है।",
+    humidityAdvice:"पत्तियों पर धब्बे और अन्य लक्षण देखें।",
+    heatRisk:"गर्म और अपेक्षाकृत शुष्क मौसम।",
+    heatAdvice:"फसल में गर्मी और पानी की कमी के लक्षण देखें।",
+    normalRisk:"मौसम से जुड़ी कोई सामान्य चेतावनी नहीं मिली।",
+    normalAdvice:"फसल की नियमित जाँच करते रहें। इसका अर्थ यह नहीं कि फसल में कीट नहीं हैं।",
+    insufficientRisk:"पर्याप्त जानकारी नहीं",
+    insufficientAdvice:"फसल की नियमित जाँच करें और कृषि विशेषज्ञ से सलाह लें।",
+    warning:"केवल मौसम और लक्षणों से रोग की पुष्टि नहीं होती। उपचार से पहले KVK या कृषि विशेषज्ञ से सलाह लें।",
+    aiWelcome:"नमस्ते! मैं किसानमित्र AI हूँ। फसल, सिंचाई, मौसम और खेती के बारे में पूछें।",
+    aiThinking:"जवाब तैयार हो रहा है...",
+    aiError:"AI सेवा से जुड़ नहीं सके। सर्वर और API सेटिंग जाँचें।",
+    noQuestion:"कृपया अपना सवाल लिखें।"
+},
+
+kn: {
+    home:"ಮುಖಪುಟ", weather:"ಹವಾಮಾನ", waterPlanner:"ನೀರಾವರಿ ಯೋಜನೆ",
+    pestAdvisor:"ಕೀಟ ಸಲಹೆ", aiAssistant:"AI ಸಹಾಯಕ",
+    heroTag:"AI ಆಧಾರಿತ ಸ್ಮಾರ್ಟ್ ಕೃಷಿ",
+    growBetter:"ಉತ್ತಮವಾಗಿ ಬೆಳೆಸಿ.", farmSmarter:"ಬುದ್ಧಿವಂತಿಕೆಯಿಂದ ಕೃಷಿ ಮಾಡಿ.",
+    heroDescription:"ನಿಮ್ಮ ಸ್ಮಾರ್ಟ್ ಕೃಷಿ ಸಹಾಯಕ. ಸ್ಥಳೀಯ ಹವಾಮಾನ ತಿಳಿಯಿರಿ, ನೀರಾವರಿ ಯೋಜಿಸಿ ಮತ್ತು ಬೆಳೆ ಅಪಾಯಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.",
+    exploreDashboard:"ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ ನೋಡಿ",
+    farmingAssistant:"ಕೃಷಿ ಸಹಾಯಕ", aiAgriculture:"AI + ಕೃಷಿ",
+    heroStatDescription:"ಕೃಷಿ ಮಾಹಿತಿಯನ್ನು ಸುಲಭವಾಗಿ ಅರ್ಥಮಾಡಿಕೊಳ್ಳಿ.",
+    ourFeatures:"ನಮ್ಮ ವೈಶಿಷ್ಟ್ಯಗಳು", everythingFarmNeeds:"ನಿಮ್ಮ ಹೊಲಕ್ಕೆ ಬೇಕಾದ ಎಲ್ಲವೂ",
+    featureDescription:"ಉತ್ತಮ ಕೃಷಿ ನಿರ್ಧಾರಗಳಿಗೆ ಉಪಯುಕ್ತ ಮಾಹಿತಿ.",
+    liveWeather:"ಪ್ರಸ್ತುತ ಹವಾಮಾನ", weatherFeature:"ಸ್ಥಳೀಯ ತಾಪಮಾನ, ತೇವಾಂಶ ಮತ್ತು ಮಳೆಯ ಮಾಹಿತಿ ಪಡೆಯಿರಿ.",
+    waterFeatureTitle:"ನೀರಾವರಿ ಯೋಜನೆ", waterFeature:"ಬೆಳೆಗಳಿಗೆ ಬೇಕಾದ ನೀರನ್ನು ಅಂದಾಜಿಸಿ.",
+    pestFeatureTitle:"ಕೀಟ ಪರಿಶೀಲನೆ", pestFeature:"ಹವಾಮಾನ ಸಂಬಂಧಿತ ಬೆಳೆ ಅಪಾಯಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.",
+    aiFeatureTitle:"AI ಸಹಾಯಕ", aiFeature:"ಬೆಳೆ ಮತ್ತು ಕೃಷಿಯ ಬಗ್ಗೆ ಪ್ರಶ್ನೆಗಳನ್ನು ಕೇಳಿ.",
+    localWeather:"ಸ್ಥಳೀಯ ಹವಾಮಾನ", weatherDashboard:"ಹವಾಮಾನ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
+    weatherSubtitle:"ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಹುಡುಕಿ ಅಥವಾ ಪ್ರಸ್ತುತ ಸ್ಥಳ ಬಳಸಿ.",
+    setLocation:"ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಆಯ್ಕೆಮಾಡಿ", searchLocation:"ನಗರ ಅಥವಾ ಹಳ್ಳಿಯನ್ನು ಹುಡುಕಿ",
+    search:"ಹುಡುಕಿ", useGPS:"ನನ್ನ ಪ್ರಸ್ತುತ ಸ್ಥಳ ಬಳಸಿ",
+    noLocation:"ಇನ್ನೂ ಸ್ಥಳ ಆಯ್ಕೆಮಾಡಿಲ್ಲ.", currentWeather:"ಪ್ರಸ್ತುತ ಹವಾಮಾನ",
+    humidity:"ತೇವಾಂಶ", rainfall:"ಮಳೆ", windSpeed:"ಗಾಳಿಯ ವೇಗ",
+    dailyET0:"ದೈನಂದಿನ ET₀", smartIrrigation:"ಸ್ಮಾರ್ಟ್ ನೀರಾವರಿ",
+    cropWaterRequirement:"ಬೆಳೆಯ ನೀರಿನ ಅವಶ್ಯಕತೆ",
+    waterIntro:"ಬೆಳೆಯ ಹಂತ, ಸ್ಥಳೀಯ ಹವಾಮಾನ ಮತ್ತು ಹೊಲದ ವಿಸ್ತೀರ್ಣದ ಆಧಾರದ ಮೇಲೆ ನೀರಿನ ಅಗತ್ಯ ಅಂದಾಜಿಸಿ.",
+    whyPlanner:"ಈ ಯೋಜನೆಯನ್ನು ಏಕೆ ಬಳಸಬೇಕು?",
+    plannerDescription:"ಬೆಳೆಯ ನೀರಿನ ಬೇಡಿಕೆಯನ್ನು ಅಂದಾಜಿಸಲು ET₀ ಮತ್ತು ಬೆಳೆ ಗುಣಾಂಕಗಳನ್ನು ಬಳಸುತ್ತದೆ. ಪರಿಣಾಮಕಾರಿ ಮಳೆಯನ್ನೂ ಪರಿಗಣಿಸುತ್ತದೆ.",
+    calculateWaterHeading:"ನೀರಿನ ಅವಶ್ಯಕತೆಯನ್ನು ಲೆಕ್ಕಹಾಕಿ",
+    selectCrop:"ಬೆಳೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ", rice:"ಭತ್ತ", wheat:"ಗೋಧಿ",
+    maize:"ಮೆಕ್ಕೆಜೋಳ", cotton:"ಹತ್ತಿ", sugarcane:"ಕಬ್ಬು",
+    groundnut:"ನೆಲಗಡಲೆ", soybean:"ಸೋಯಾಬೀನ್", tomato:"ಟೊಮೇಟೊ",
+    chilli:"ಮೆಣಸಿನಕಾಯಿ", onion:"ಈರುಳ್ಳಿ", potato:"ಆಲೂಗಡ್ಡೆ",
+    banana:"ಬಾಳೆಹಣ್ಣು", chickpea:"ಕಡಲೆ", okra:"ಬೆಂಡೆಕಾಯಿ",
+    farmArea:"ಹೊಲದ ವಿಸ್ತೀರ್ಣ (ಎಕರೆ)", cropStage:"ಬೆಳೆಯ ಹಂತ",
+    initialStage:"ಆರಂಭಿಕ ಹಂತ", developmentStage:"ಬೆಳವಣಿಗೆಯ ಹಂತ",
+    midStage:"ಮಧ್ಯ ಹಂತ", lateStage:"ಕೊನೆಯ ಹಂತ",
+    irrigationMethod:"ನೀರಾವರಿ ವಿಧಾನ", drip:"ಹನಿ ನೀರಾವರಿ",
+    sprinkler:"ಸಿಂಪಡಣೆ ನೀರಾವರಿ", surface:"ಮೇಲ್ಮೈ / ಪ್ರವಾಹ ನೀರಾವರಿ",
+    calculateWater:"ನೀರಿನ ಲೆಕ್ಕ ಹಾಕಿ", cropProtection:"ಬೆಳೆ ರಕ್ಷಣೆ",
+    pestScreening:"ಕೀಟ ಮತ್ತು ರೋಗ ಪರಿಶೀಲನೆ",
+    pestSubtitle:"ಸ್ಥಳೀಯ ಹವಾಮಾನ ಮತ್ತು ಲಕ್ಷಣಗಳಿಂದ ಬೆಳೆ ಅಪಾಯಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.",
+    checkYourCrop:"ನಿಮ್ಮ ಬೆಳೆಯನ್ನು ಪರಿಶೀಲಿಸಿ", observedSymptom:"ಕಂಡುಬಂದ ಲಕ್ಷಣ",
+    unknown:"ಗೊತ್ತಿಲ್ಲ", holes:"ಎಲೆಗಳಲ್ಲಿ ರಂಧ್ರಗಳು",
+    yellowing:"ಹಳದಿ ಎಲೆಗಳು", spots:"ಎಲೆಗಳ ಮೇಲೆ ಕಲೆಗಳು",
+    insects:"ಕಾಣುವ ಕೀಟಗಳು", screenRisk:"ಬೆಳೆ ಅಪಾಯ ಪರಿಶೀಲಿಸಿ",
+    poweredByAI:"AI ಆಧಾರಿತ", askKisanMitra:"ಕಿಸಾನ್‌ಮಿತ್ರ AI ಅನ್ನು ಕೇಳಿ",
+    aiSubtitle:"ನಿಮ್ಮ ಕೃಷಿ ಪ್ರಶ್ನೆಗಳಿಗೆ ಸರಳ ಉತ್ತರಗಳು.",
+    aiAssistantTitle:"ಕಿಸಾನ್‌ಮಿತ್ರ AI ಸಹಾಯಕ",
+    assistantStatus:"ಕೃಷಿ ಸಹಾಯಕರ ಸೇವೆ", yourQuestion:"ನಿಮ್ಮ ಪ್ರಶ್ನೆ",
+    questionPlaceholder:"ನಿಮ್ಮ ಕೃಷಿ ಪ್ರಶ್ನೆಯನ್ನು ಕೇಳಿ...",
+    askAI:"ಕಿಸಾನ್‌ಮಿತ್ರ AI ಅನ್ನು ಕೇಳಿ",
+    aiDisclaimer:"AI ಉತ್ತರಗಳು ಮಾಹಿತಿಗಾಗಿ ಮಾತ್ರ. ಮುಖ್ಯ ಬೆಳೆ ಚಿಕಿತ್ಸಾ ನಿರ್ಧಾರಗಳನ್ನು ಸ್ಥಳೀಯ ಕೃಷಿ ತಜ್ಞರೊಂದಿಗೆ ಪರಿಶೀಲಿಸಿ.",
+    footerDescription:"ತಂತ್ರಜ್ಞಾನದ ಮೂಲಕ ರೈತರಿಗೆ ಉಪಯುಕ್ತ ಕೃಷಿ ಮಾಹಿತಿಯನ್ನು ಒದಗಿಸುವುದು.",
+    quickLinks:"ತ್ವರಿತ ಲಿಂಕ್‌ಗಳು", more:"ಇನ್ನಷ್ಟು",
+    copyright:"© 2026 ಕಿಸಾನ್‌ಮಿತ್ರ AI. ಉತ್ತಮ ಕೃಷಿಗಾಗಿ.",
+    locationPlaceholder:"ಉದಾಹರಣೆ: ಬೆಂಗಳೂರು",
+    waitingWeather:"ಹವಾಮಾನ ಮಾಹಿತಿಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ...",
+    weatherSource:"ಹವಾಮಾನ ಮಾಹಿತಿ Open-Meteo ನಿಂದ.",
+    noData:"ಹವಾಮಾನ ಮಾಹಿತಿ ಲಭ್ಯವಿಲ್ಲ",
+    searchError:"ಈ ಸ್ಥಳ ಕಂಡುಬಂದಿಲ್ಲ.",
+    loadingWeather:"ಸ್ಥಳೀಯ ಹವಾಮಾನ ಲೋಡ್ ಆಗುತ್ತಿದೆ...",
+    locationLoaded:"ಹವಾಮಾನ ಮಾಹಿತಿ ಲಭ್ಯವಾಗಿದೆ.",
+    gpsError:"ಸ್ಥಳ ಅನುಮತಿ ದೊರೆಯಲಿಲ್ಲ. ಸ್ಥಳದ ಹೆಸರಿನಿಂದ ಹುಡುಕಿ.",
+    gpsLoading:"ನಿಮ್ಮ ಸ್ಥಳ ಪಡೆಯಲಾಗುತ್ತಿದೆ...",
+    gpsUnsupported:"ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ GPS ಲಭ್ಯವಿಲ್ಲ.",
+    enterLocation:"ನಗರ ಅಥವಾ ಹಳ್ಳಿಯ ಹೆಸರನ್ನು ನಮೂದಿಸಿ.",
+    enterArea:"ಸರಿಯಾದ ಹೊಲದ ವಿಸ್ತೀರ್ಣ ನಮೂದಿಸಿ.",
+    selectLocationFirst:"ಮೊದಲು ಸ್ಥಳೀಯ ಹವಾಮಾನ ಲೋಡ್ ಮಾಡಿ.",
+    missingWeather:"ಅಗತ್ಯ ದೈನಂದಿನ ಹವಾಮಾನ ಮಾಹಿತಿ ಲಭ್ಯವಿಲ್ಲ.",
+    waterResult:"ಅಂದಾಜು ನೀರಿನ ಅವಶ್ಯಕತೆ",
+    litres:"ಲೀಟರ್",
+    estimatedFor:"ಆಯ್ಕೆ ಮಾಡಿದ ದಿನದ ಅಂದಾಜು ನೀರಾವರಿ ನೀರು.",
+    et0Label:"ET₀", kcLabel:"ಬೆಳೆ ಗುಣಾಂಕ (Kc)",
+    etcLabel:"ಬೆಳೆ ನೀರಿನ ಬಳಕೆ (ETc)",
+    effectiveRainLabel:"ಪರಿಣಾಮಕಾರಿ ಮಳೆ",
+    netIrrigationLabel:"ನಿವ್ವಳ ನೀರಾವರಿ ಅವಶ್ಯಕತೆ",
+    estimateNote:"ಇದು ಅಂದಾಜು ಮಾತ್ರ; ಖಚಿತ ನೀರಾವರಿ ಸಲಹೆಯಲ್ಲ. ಮಣ್ಣು, ಬೆಳೆ ತಳಿ, ಹವಾಮಾನ ಮತ್ತು ನೀರಾವರಿ ವಿಧಾನದಿಂದ ನಿಜವಾದ ಅವಶ್ಯಕತೆ ಬದಲಾಗಬಹುದು.",
+    pestResultTitle:"ಬೆಳೆ ಪರಿಶೀಲನೆ ಫಲಿತಾಂಶ", cropLabel:"ಬೆಳೆ",
+    symptomLabel:"ಕಂಡುಬಂದ ಲಕ್ಷಣ", weatherScreening:"ಹವಾಮಾನ ಪರಿಶೀಲನೆ",
+    moistureRisk:"ತೇವಾಂಶ ಸಂಬಂಧಿತ ಕೆಲವು ಬೆಳೆ ರೋಗಗಳಿಗೆ ಅನುಕೂಲಕರ ಪರಿಸ್ಥಿತಿ ಇರಬಹುದು.",
+    moistureAdvice:"ಎಲೆ ಮತ್ತು ಕಾಂಡಗಳನ್ನು ಪರಿಶೀಲಿಸಿ. ಚಿಕಿತ್ಸೆಗೆ ಮೊದಲು ಕೃಷಿ ತಜ್ಞರನ್ನು ಸಂಪರ್ಕಿಸಿ.",
+    humidityRisk:"ಹೆಚ್ಚಿನ ತೇವಾಂಶದಿಂದ ಬೆಳೆ ಮೇಲ್ವಿಚಾರಣೆ ಅಗತ್ಯ.",
+    humidityAdvice:"ಎಲೆಗಳ ಕಲೆಗಳು ಮತ್ತು ಇತರ ಲಕ್ಷಣಗಳನ್ನು ಗಮನಿಸಿ.",
+    heatRisk:"ಬಿಸಿ ಮತ್ತು ತುಸು ಒಣ ಹವಾಮಾನ.",
+    heatAdvice:"ಬೆಳೆಯಲ್ಲಿ ಬಿಸಿ ಮತ್ತು ನೀರಿನ ಒತ್ತಡವನ್ನು ಗಮನಿಸಿ.",
+    normalRisk:"ಸರಳ ಹವಾಮಾನ ಎಚ್ಚರಿಕೆ ಪತ್ತೆಯಾಗಿಲ್ಲ.",
+    normalAdvice:"ಬೆಳೆಯನ್ನು ನಿಯಮಿತವಾಗಿ ಪರಿಶೀಲಿಸಿ. ಇದರಿಂದ ಕೀಟಗಳಿಲ್ಲ ಎಂದು ಖಚಿತವಾಗುವುದಿಲ್ಲ.",
+    insufficientRisk:"ಸಾಕಷ್ಟು ಮಾಹಿತಿ ಇಲ್ಲ",
+    insufficientAdvice:"ಬೆಳೆಯನ್ನು ನಿಯಮಿತವಾಗಿ ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಕೃಷಿ ತಜ್ಞರನ್ನು ಸಂಪರ್ಕಿಸಿ.",
+    warning:"ಹವಾಮಾನ ಮತ್ತು ಲಕ್ಷಣಗಳಿಂದ ಮಾತ್ರ ರೋಗವನ್ನು ಖಚಿತಪಡಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ. ಚಿಕಿತ್ಸೆಗೆ ಮೊದಲು KVK ಅಥವಾ ಕೃಷಿ ತಜ್ಞರನ್ನು ಸಂಪರ್ಕಿಸಿ.",
+    aiWelcome:"ನಮಸ್ಕಾರ! ನಾನು ಕಿಸಾನ್‌ಮಿತ್ರ AI. ಬೆಳೆ, ನೀರಾವರಿ, ಹವಾಮಾನ ಮತ್ತು ಕೃಷಿಯ ಬಗ್ಗೆ ಕೇಳಿ.",
+    aiThinking:"ಉತ್ತರ ಸಿದ್ಧವಾಗುತ್ತಿದೆ...",
+    aiError:"AI ಸೇವೆಗೆ ಸಂಪರ್ಕ ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ಸರ್ವರ್ ಮತ್ತು API ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.",
+    noQuestion:"ದಯವಿಟ್ಟು ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ನಮೂದಿಸಿ."
+},
+
+ta: {
+    home:"முகப்பு", weather:"வானிலை", waterPlanner:"நீர்ப்பாசனத் திட்டம்",
+    pestAdvisor:"பூச்சி ஆலோசனை", aiAssistant:"AI உதவியாளர்",
+    heroTag:"AI மூலம் ஸ்மார்ட் விவசாயம்",
+    growBetter:"சிறப்பாக விளைவிக்கவும்.", farmSmarter:"அறிவார்ந்த விவசாயம் செய்யவும்.",
+    heroDescription:"உங்கள் அறிவார்ந்த விவசாயத் துணைவர். உள்ளூர் வானிலையை அறிந்து, நீர்ப்பாசனத்தைத் திட்டமிட்டு, பயிர் அபாயங்களைச் சரிபார்க்கவும்.",
+    exploreDashboard:"டாஷ்போர்டைப் பார்க்கவும்",
+    farmingAssistant:"விவசாய உதவியாளர்", aiAgriculture:"AI + விவசாயம்",
+    heroStatDescription:"விவசாயத் தகவல்களை எளிதாகப் புரிந்துகொள்ளுங்கள்.",
+    ourFeatures:"எங்கள் அம்சங்கள்", everythingFarmNeeds:"உங்கள் பண்ணைக்குத் தேவையான அனைத்தும்",
+    featureDescription:"சிறந்த விவசாய முடிவுகளுக்கான பயனுள்ள தகவல்கள்.",
+    liveWeather:"நேரடி வானிலை", weatherFeature:"உள்ளூர் வெப்பநிலை, ஈரப்பதம் மற்றும் மழையை அறியுங்கள்.",
+    waterFeatureTitle:"நீர்ப்பாசனத் திட்டம்", waterFeature:"பயிர்களுக்கான நீர்த் தேவையை மதிப்பிடுங்கள்.",
+    pestFeatureTitle:"பூச்சி ஆய்வு", pestFeature:"வானிலை தொடர்பான பயிர் அபாயங்களை ஆய்வு செய்யுங்கள்.",
+    aiFeatureTitle:"AI உதவியாளர்", aiFeature:"பயிர்கள் மற்றும் விவசாயம் பற்றி கேளுங்கள்.",
+    localWeather:"உள்ளூர் வானிலை", weatherDashboard:"வானிலை டாஷ்போர்டு",
+    weatherSubtitle:"உங்கள் இடத்தைத் தேடுங்கள் அல்லது தற்போதைய இடத்தைப் பயன்படுத்துங்கள்.",
+    setLocation:"உங்கள் இடத்தைத் தேர்ந்தெடுக்கவும்", searchLocation:"நகரம் அல்லது கிராமத்தைத் தேடுங்கள்",
+    search:"தேடுக", useGPS:"எனது தற்போதைய இடத்தைப் பயன்படுத்தவும்",
+    noLocation:"இடம் இன்னும் தேர்ந்தெடுக்கப்படவில்லை.", currentWeather:"தற்போதைய வானிலை",
+    humidity:"ஈரப்பதம்", rainfall:"மழைப்பொழிவு", windSpeed:"காற்றின் வேகம்",
+    dailyET0:"தினசரி ET₀", smartIrrigation:"ஸ்மார்ட் நீர்ப்பாசனம்",
+    cropWaterRequirement:"பயிரின் நீர் தேவை",
+    waterIntro:"பயிரின் நிலை, உள்ளூர் வானிலை மற்றும் நிலப்பரப்பைப் பயன்படுத்தி நீர்த் தேவையை மதிப்பிடுங்கள்.",
+    whyPlanner:"இந்தத் திட்டத்தை ஏன் பயன்படுத்த வேண்டும்?",
+    plannerDescription:"ET₀ மற்றும் பயிர் குணகங்களைப் பயன்படுத்தி நீர்த் தேவையை மதிப்பிடுகிறது. பயனுள்ள மழையும் கணக்கில் கொள்ளப்படுகிறது.",
+    calculateWaterHeading:"நீர்த் தேவையைக் கணக்கிடுக",
+    selectCrop:"பயிரைத் தேர்ந்தெடுக்கவும்", rice:"நெல்", wheat:"கோதுமை",
+    maize:"மக்காச்சோளம்", cotton:"பருத்தி", sugarcane:"கரும்பு",
+    groundnut:"நிலக்கடலை", soybean:"சோயாபீன்", tomato:"தக்காளி",
+    chilli:"மிளகாய்", onion:"வெங்காயம்", potato:"உருளைக்கிழங்கு",
+    banana:"வாழை", chickpea:"கொண்டைக்கடலை", okra:"வெண்டைக்காய்",
+    farmArea:"நிலப்பரப்பு (ஏக்கர்)", cropStage:"பயிரின் வளர்ச்சி நிலை",
+    initialStage:"ஆரம்ப நிலை", developmentStage:"வளர்ச்சி நிலை",
+    midStage:"நடுநிலை", lateStage:"இறுதி நிலை",
+    irrigationMethod:"நீர்ப்பாசன முறை", drip:"சொட்டு நீர்ப்பாசனம்",
+    sprinkler:"தெளிப்பு நீர்ப்பாசனம்", surface:"மேற்பரப்பு / வெள்ள நீர்ப்பாசனம்",
+    calculateWater:"நீர் தேவையைக் கணக்கிடுக", cropProtection:"பயிர் பாதுகாப்பு",
+    pestScreening:"பூச்சி மற்றும் நோய் ஆய்வு",
+    pestSubtitle:"உள்ளூர் வானிலை மற்றும் அறிகுறிகளைப் பயன்படுத்தி பயிர் அபாயங்களை ஆய்வு செய்யுங்கள்.",
+    checkYourCrop:"உங்கள் பயிரைச் சரிபார்க்கவும்", observedSymptom:"காணப்பட்ட அறிகுறி",
+    unknown:"தெரியவில்லை", holes:"இலைகளில் துளைகள்",
+    yellowing:"மஞ்சள் இலைகள்", spots:"இலைகளில் புள்ளிகள்",
+    insects:"காணக்கூடிய பூச்சிகள்", screenRisk:"பயிர் அபாயத்தை ஆய்வு செய்யுங்கள்",
+    poweredByAI:"AI மூலம் இயக்கப்படுகிறது", askKisanMitra:"கிசான்மித்ரா AI-யிடம் கேளுங்கள்",
+    aiSubtitle:"உங்கள் விவசாயக் கேள்விகளுக்கு எளிய பதில்கள்.",
+    aiAssistantTitle:"கிசான்மித்ரா AI உதவியாளர்",
+    assistantStatus:"விவசாய உதவியாளர்", yourQuestion:"உங்கள் கேள்வி",
+    questionPlaceholder:"உங்கள் விவசாயக் கேள்வியைக் கேளுங்கள்...",
+    askAI:"கிசான்மித்ரா AI-யிடம் கேளுங்கள்",
+    aiDisclaimer:"AI பதில்கள் தகவலுக்காக மட்டுமே. முக்கியமான பயிர் சிகிச்சை முடிவுகளை உள்ளூர் விவசாய நிபுணரிடம் சரிபார்க்கவும்.",
+    footerDescription:"தொழில்நுட்பத்தின் மூலம் விவசாயிகளுக்கு பயனுள்ள தகவல்களை வழங்குதல்.",
+    quickLinks:"விரைவு இணைப்புகள்", more:"மேலும்",
+    copyright:"© 2026 கிசான்மித்ரா AI. சிறந்த விவசாயத்திற்காக.",
+    locationPlaceholder:"உதாரணம்: சென்னை",
+    waitingWeather:"வானிலைத் தகவலுக்காகக் காத்திருக்கிறது...",
+    weatherSource:"வானிலைத் தகவல் Open-Meteo மூலம் வழங்கப்படுகிறது.",
+    noData:"வானிலைத் தகவல் கிடைக்கவில்லை",
+    searchError:"இந்த இடத்தைக் கண்டறிய முடியவில்லை.",
+    loadingWeather:"உள்ளூர் வானிலை ஏற்றப்படுகிறது...",
+    locationLoaded:"வானிலைத் தகவல் கிடைத்தது.",
+    gpsError:"இட அனுமதி கிடைக்கவில்லை. இடத்தின் பெயரைத் தேடுங்கள்.",
+    gpsLoading:"உங்கள் இடம் பெறப்படுகிறது...",
+    gpsUnsupported:"இந்த உலாவியில் GPS இல்லை.",
+    enterLocation:"நகரம் அல்லது கிராமத்தின் பெயரை உள்ளிடவும்.",
+    enterArea:"சரியான நிலப்பரப்பை உள்ளிடவும்.",
+    selectLocationFirst:"முதலில் உள்ளூர் வானிலையைப் பெறுங்கள்.",
+    missingWeather:"தேவையான தினசரி வானிலைத் தகவல் இல்லை.",
+    waterResult:"மதிப்பிடப்பட்ட நீர்த் தேவை",
+    litres:"லிட்டர்",
+    estimatedFor:"தேர்ந்தெடுக்கப்பட்ட நாளுக்கான மதிப்பிடப்பட்ட நீர்ப்பாசன நீர்.",
+    et0Label:"ET₀", kcLabel:"பயிர் குணகம் (Kc)",
+    etcLabel:"பயிரின் நீர் பயன்பாடு (ETc)",
+    effectiveRainLabel:"பயனுள்ள மழை",
+    netIrrigationLabel:"நிகர நீர்ப்பாசனத் தேவை",
+    estimateNote:"இது ஒரு தோராயமான கல்வி மதிப்பீடு மட்டுமே; உறுதியான நீர்ப்பாசன ஆலோசனை அல்ல. மண், பயிர் வகை, வானிலை மற்றும் நீர்ப்பாசன முறையைப் பொறுத்து உண்மையான தேவை மாறும்.",
+    pestResultTitle:"பயிர் ஆய்வு முடிவு", cropLabel:"பயிர்",
+    symptomLabel:"காணப்பட்ட அறிகுறி", weatherScreening:"வானிலை ஆய்வு",
+    moistureRisk:"ஈரப்பதம் தொடர்பான சில பயிர் நோய்களுக்கு ஏற்ற சூழல் இருக்கலாம்.",
+    moistureAdvice:"இலைகள் மற்றும் தண்டுகளை ஆய்வு செய்யுங்கள். சிகிச்சைக்கு முன் விவசாய நிபுணரிடம் கேளுங்கள்.",
+    humidityRisk:"அதிக ஈரப்பதம் காரணமாக பயிரைக் கவனமாகக் கண்காணிக்க வேண்டும்.",
+    humidityAdvice:"இலைப் புள்ளிகள் மற்றும் பிற அறிகுறிகளைக் கவனியுங்கள்.",
+    heatRisk:"வெப்பமான மற்றும் ஒப்பீட்டளவில் வறண்ட நிலை.",
+    heatAdvice:"வெப்பம் மற்றும் நீர் அழுத்தத்தைப் பயிரில் கண்காணிக்கவும்.",
+    normalRisk:"எளிய வானிலை எச்சரிக்கை எதுவும் கண்டறியப்படவில்லை.",
+    normalAdvice:"பயிரைத் தொடர்ந்து கண்காணிக்கவும். இது பூச்சிகள் இல்லை என்பதை உறுதிப்படுத்தாது.",
+    insufficientRisk:"போதுமான தகவல் இல்லை",
+    insufficientAdvice:"பயிரைத் தொடர்ந்து ஆய்வு செய்து விவசாய நிபுணரை அணுகவும்.",
+    warning:"வானிலை மற்றும் அறிகுறிகள் மட்டும் நோயை உறுதிப்படுத்தாது. சிகிச்சைக்கு முன் KVK அல்லது விவசாய நிபுணரை அணுகவும்.",
+    aiWelcome:"வணக்கம்! நான் கிசான்மித்ரா AI. பயிர்கள், நீர்ப்பாசனம், வானிலை மற்றும் விவசாயம் பற்றி கேளுங்கள்.",
+    aiThinking:"பதில் தயாராகிறது...",
+    aiError:"AI சேவையுடன் இணைக்க முடியவில்லை. சர்வர் மற்றும் API அமைப்புகளைச் சரிபார்க்கவும்.",
+    noQuestion:"உங்கள் கேள்வியை உள்ளிடவும்."
+},
+
+mr: {
+    home:"मुख्यपृष्ठ", weather:"हवामान", waterPlanner:"पाणी नियोजन",
+    pestAdvisor:"कीड सल्ला", aiAssistant:"AI सहाय्यक",
+    heroTag:"AI आधारित स्मार्ट शेती",
+    growBetter:"चांगले पीक घ्या.", farmSmarter:"स्मार्ट शेती करा.",
+    heroDescription:"तुमचा स्मार्ट शेती सहाय्यक. स्थानिक हवामान जाणून घ्या, पाण्याचे नियोजन करा आणि पिकांचे संभाव्य धोके तपासा.",
+    exploreDashboard:"डॅशबोर्ड पहा",
+    farmingAssistant:"शेती सहाय्यक", aiAgriculture:"AI + शेती",
+    heroStatDescription:"शेतीची माहिती सहज समजून घ्या.",
+    ourFeatures:"आमची वैशिष्ट्ये", everythingFarmNeeds:"तुमच्या शेतीसाठी आवश्यक सुविधा",
+    featureDescription:"चांगल्या शेती निर्णयांसाठी उपयुक्त माहिती.",
+    liveWeather:"हवामान माहिती", weatherFeature:"स्थानिक तापमान, आर्द्रता आणि पाऊस तपासा.",
+    waterFeatureTitle:"पाणी नियोजन", waterFeature:"वेगवेगळ्या पिकांच्या पाण्याच्या गरजेचा अंदाज घ्या.",
+    pestFeatureTitle:"कीड तपासणी", pestFeature:"हवामानाशी संबंधित पिकांचे धोके तपासा.",
+    aiFeatureTitle:"AI सहाय्यक", aiFeature:"पिके आणि शेतीबद्दल प्रश्न विचारा.",
+    localWeather:"स्थानिक हवामान", weatherDashboard:"हवामान डॅशबोर्ड",
+    weatherSubtitle:"तुमचे ठिकाण शोधा किंवा सध्याचे ठिकाण वापरा.",
+    setLocation:"तुमचे ठिकाण निवडा", searchLocation:"शहर किंवा गाव शोधा",
+    search:"शोधा", useGPS:"माझे सध्याचे ठिकाण वापरा",
+    noLocation:"अजून ठिकाण निवडलेले नाही.", currentWeather:"सध्याचे हवामान",
+    humidity:"आर्द्रता", rainfall:"पाऊस", windSpeed:"वाऱ्याचा वेग",
+    dailyET0:"दैनिक ET₀", smartIrrigation:"स्मार्ट सिंचन",
+    cropWaterRequirement:"पिकाची पाण्याची गरज",
+    waterIntro:"पीक अवस्था, स्थानिक हवामान आणि शेताच्या क्षेत्रफळावरून पाण्याची गरज मोजा.",
+    whyPlanner:"या नियोजनाचा वापर का करावा?",
+    plannerDescription:"पीक पाण्याची गरज मोजण्यासाठी ET₀ आणि पीक गुणांक वापरले जातात. प्रभावी पावसाचाही विचार केला जातो.",
+    calculateWaterHeading:"पाण्याची गरज मोजा",
+    selectCrop:"पीक निवडा", rice:"भात", wheat:"गहू",
+    maize:"मका", cotton:"कापूस", sugarcane:"ऊस",
+    groundnut:"भुईमूग", soybean:"सोयाबीन", tomato:"टोमॅटो",
+    chilli:"मिरची", onion:"कांदा", potato:"बटाटा",
+    banana:"केळी", chickpea:"हरभरा", okra:"भेंडी",
+    farmArea:"शेताचे क्षेत्रफळ (एकर)", cropStage:"पिकाची अवस्था",
+    initialStage:"प्रारंभिक अवस्था", developmentStage:"वाढीची अवस्था",
+    midStage:"मधली अवस्था", lateStage:"शेवटची अवस्था",
+    irrigationMethod:"सिंचन पद्धत", drip:"ठिबक सिंचन",
+    sprinkler:"तुषार सिंचन", surface:"पृष्ठभाग / पूर सिंचन",
+    calculateWater:"पाण्याची गणना करा", cropProtection:"पीक संरक्षण",
+    pestScreening:"कीड आणि रोग तपासणी",
+    pestSubtitle:"स्थानिक हवामान आणि लक्षणांच्या आधारे पिकांचे संभाव्य धोके तपासा.",
+    checkYourCrop:"तुमचे पीक तपासा", observedSymptom:"दिसणारे लक्षण",
+    unknown:"माहित नाही", holes:"पानांमध्ये छिद्रे",
+    yellowing:"पिवळी पाने", spots:"पानांवर डाग",
+    insects:"दिसणारे कीटक", screenRisk:"पिकाचा धोका तपासा",
+    poweredByAI:"AI आधारित", askKisanMitra:"किसानमित्र AI ला विचारा",
+    aiSubtitle:"तुमच्या शेतीच्या प्रश्नांची सोपी उत्तरे.",
+    aiAssistantTitle:"किसानमित्र AI सहाय्यक",
+    assistantStatus:"शेती सहाय्यक", yourQuestion:"तुमचा प्रश्न",
+    questionPlaceholder:"तुमचा शेतीविषयक प्रश्न विचारा...",
+    askAI:"किसानमित्र AI ला विचारा",
+    aiDisclaimer:"AI उत्तरे केवळ माहितीसाठी आहेत. पीक उपचाराचे महत्त्वाचे निर्णय स्थानिक कृषी तज्ज्ञांकडून तपासा.",
+    footerDescription:"तंत्रज्ञानाद्वारे शेतकऱ्यांना उपयुक्त कृषी माहिती उपलब्ध करून देणे.",
+    quickLinks:"जलद दुवे", more:"अधिक",
+    copyright:"© 2026 किसानमित्र AI. स्मार्ट शेतीसाठी.",
+    locationPlaceholder:"उदाहरण: पुणे",
+    waitingWeather:"हवामान माहितीची प्रतीक्षा आहे...",
+    weatherSource:"हवामान माहिती Open-Meteo कडून.",
+    noData:"हवामान माहिती उपलब्ध नाही",
+    searchError:"हे ठिकाण सापडले नाही.",
+    loadingWeather:"स्थानिक हवामान लोड होत आहे...",
+    locationLoaded:"हवामान माहिती मिळाली.",
+    gpsError:"स्थानाची परवानगी मिळाली नाही. ठिकाणाचे नाव शोधा.",
+    gpsLoading:"तुमचे ठिकाण मिळवले जात आहे...",
+    gpsUnsupported:"या ब्राउझरमध्ये GPS उपलब्ध नाही.",
+    enterLocation:"शहर किंवा गावाचे नाव टाका.",
+    enterArea:"शेताचे योग्य क्षेत्रफळ टाका.",
+    selectLocationFirst:"प्रथम स्थानिक हवामान लोड करा.",
+    missingWeather:"आवश्यक दैनिक हवामान माहिती उपलब्ध नाही.",
+    waterResult:"अंदाजित पाण्याची गरज",
+    litres:"लिटर",
+    estimatedFor:"निवडलेल्या दिवसासाठी अंदाजित सिंचन पाणी.",
+    et0Label:"ET₀", kcLabel:"पीक गुणांक (Kc)",
+    etcLabel:"पीक पाणी वापर (ETc)",
+    effectiveRainLabel:"प्रभावी पाऊस",
+    netIrrigationLabel:"निव्वळ सिंचनाची गरज",
+    estimateNote:"हा केवळ अंदाज आहे, निश्चित सिंचन सल्ला नाही. माती, पीक प्रकार, हवामान आणि सिंचन पद्धतीनुसार प्रत्यक्ष गरज बदलू शकते.",
+    pestResultTitle:"पीक तपासणी निकाल", cropLabel:"पीक",
+    symptomLabel:"दिसणारे लक्षण", weatherScreening:"हवामान तपासणी",
+    moistureRisk:"ओलाव्याशी संबंधित काही पीक रोगांसाठी अनुकूल परिस्थिती असू शकते.",
+    moistureAdvice:"पाने आणि खोड तपासा. उपचारापूर्वी कृषी तज्ज्ञांचा सल्ला घ्या.",
+    humidityRisk:"जास्त आर्द्रतेमुळे पिकाचे निरीक्षण आवश्यक आहे.",
+    humidityAdvice:"पानांवरील डाग आणि इतर लक्षणे तपासा.",
+    heatRisk:"गरम आणि तुलनेने कोरडे हवामान.",
+    heatAdvice:"पिकातील उष्णता आणि पाण्याचा ताण तपासा.",
+    normalRisk:"साधा हवामान इशारा आढळला नाही.",
+    normalAdvice:"पिकाचे नियमित निरीक्षण करा. याचा अर्थ कीड नाही असा होत नाही.",
+    insufficientRisk:"पुरेशी माहिती नाही",
+    insufficientAdvice:"पिकाचे नियमित निरीक्षण करा आणि कृषी तज्ज्ञांचा सल्ला घ्या.",
+    warning:"हवामान आणि लक्षणांवरूनच रोग निश्चित होत नाही. उपचारापूर्वी KVK किंवा कृषी तज्ज्ञांचा सल्ला घ्या.",
+    aiWelcome:"नमस्कार! मी किसानमित्र AI आहे. पिके, सिंचन, हवामान आणि शेतीबद्दल विचारा.",
+    aiThinking:"उत्तर तयार होत आहे...",
+    aiError:"AI सेवेशी जोडता आले नाही. सर्व्हर आणि API सेटिंग्ज तपासा.",
+    noQuestion:"कृपया तुमचा प्रश्न लिहा."
+},
+
+bn: {
+    home:"হোম", weather:"আবহাওয়া", waterPlanner:"সেচ পরিকল্পনা",
+    pestAdvisor:"পোকামাকড় পরামর্শ", aiAssistant:"AI সহকারী",
+    heroTag:"AI চালিত স্মার্ট কৃষি",
+    growBetter:"আরও ভালো ফলন করুন।", farmSmarter:"বুদ্ধিমত্তার সঙ্গে চাষ করুন।",
+    heroDescription:"আপনার স্মার্ট কৃষি সহায়ক। স্থানীয় আবহাওয়া জানুন, সেচের পরিকল্পনা করুন এবং ফসলের সম্ভাব্য ঝুঁকি পরীক্ষা করুন।",
+    exploreDashboard:"ড্যাশবোর্ড দেখুন",
+    farmingAssistant:"কৃষি সহায়ক", aiAgriculture:"AI + কৃষি",
+    heroStatDescription:"কৃষির তথ্য সহজে বুঝতে সাহায্য করে।",
+    ourFeatures:"আমাদের বৈশিষ্ট্য", everythingFarmNeeds:"আপনার খামারের জন্য প্রয়োজনীয় সবকিছু",
+    featureDescription:"ভালো কৃষি সিদ্ধান্তের জন্য দরকারি তথ্য।",
+    liveWeather:"বর্তমান আবহাওয়া", weatherFeature:"স্থানীয় তাপমাত্রা, আর্দ্রতা ও বৃষ্টিপাত দেখুন।",
+    waterFeatureTitle:"সেচ পরিকল্পনা", waterFeature:"বিভিন্ন ফসলের জলের প্রয়োজন অনুমান করুন।",
+    pestFeatureTitle:"পোকা পরীক্ষা", pestFeature:"আবহাওয়া সম্পর্কিত ফসলের ঝুঁকি পরীক্ষা করুন।",
+    aiFeatureTitle:"AI সহকারী", aiFeature:"ফসল ও কৃষি সম্পর্কে প্রশ্ন করুন।",
+    localWeather:"স্থানীয় আবহাওয়া", weatherDashboard:"আবহাওয়া ড্যাশবোর্ড",
+    weatherSubtitle:"আপনার অবস্থান খুঁজুন অথবা বর্তমান অবস্থান ব্যবহার করুন।",
+    setLocation:"আপনার অবস্থান নির্বাচন করুন", searchLocation:"শহর বা গ্রাম খুঁজুন",
+    search:"খুঁজুন", useGPS:"আমার বর্তমান অবস্থান ব্যবহার করুন",
+    noLocation:"এখনও কোনো অবস্থান নির্বাচন করা হয়নি।", currentWeather:"বর্তমান আবহাওয়া",
+    humidity:"আর্দ্রতা", rainfall:"বৃষ্টিপাত", windSpeed:"বাতাসের গতি",
+    dailyET0:"দৈনিক ET₀", smartIrrigation:"স্মার্ট সেচ",
+    cropWaterRequirement:"ফসলের জলের প্রয়োজন",
+    waterIntro:"ফসলের পর্যায়, স্থানীয় আবহাওয়া এবং জমির পরিমাণ অনুযায়ী জলের প্রয়োজন অনুমান করুন।",
+    whyPlanner:"এই পরিকল্পনা কেন ব্যবহার করবেন?",
+    plannerDescription:"ফসলের জলের চাহিদা অনুমান করতে ET₀ এবং ফসলের সহগ ব্যবহার করা হয়। কার্যকর বৃষ্টিও বিবেচনা করা হয়।",
+    calculateWaterHeading:"জলের প্রয়োজন গণনা করুন",
+    selectCrop:"ফসল নির্বাচন করুন", rice:"ধান", wheat:"গম",
+    maize:"ভুট্টা", cotton:"তুলা", sugarcane:"আখ",
+    groundnut:"চিনাবাদাম", soybean:"সয়াবিন", tomato:"টমেটো",
+    chilli:"লঙ্কা", onion:"পেঁয়াজ", potato:"আলু",
+    banana:"কলা", chickpea:"ছোলা", okra:"ঢেঁড়স",
+    farmArea:"জমির পরিমাণ (একর)", cropStage:"ফসলের পর্যায়",
+    initialStage:"প্রাথমিক পর্যায়", developmentStage:"বৃদ্ধির পর্যায়",
+    midStage:"মধ্য পর্যায়", lateStage:"শেষ পর্যায়",
+    irrigationMethod:"সেচের পদ্ধতি", drip:"ড্রিপ সেচ",
+    sprinkler:"স্প্রিংকলার সেচ", surface:"ভূপৃষ্ঠ / বন্যা সেচ",
+    calculateWater:"জলের হিসাব করুন", cropProtection:"ফসল সুরক্ষা",
+    pestScreening:"পোকা ও রোগ পরীক্ষা",
+    pestSubtitle:"স্থানীয় আবহাওয়া ও লক্ষণ দিয়ে ফসলের সম্ভাব্য ঝুঁকি পরীক্ষা করুন।",
+    checkYourCrop:"আপনার ফসল পরীক্ষা করুন", observedSymptom:"দেখা লক্ষণ",
+    unknown:"নিশ্চিত নই", holes:"পাতায় ছিদ্র",
+    yellowing:"হলুদ পাতা", spots:"পাতায় দাগ",
+    insects:"দৃশ্যমান পোকা", screenRisk:"ফসলের ঝুঁকি পরীক্ষা করুন",
+    poweredByAI:"AI চালিত", askKisanMitra:"কিষানমিত্র AI-কে জিজ্ঞাসা করুন",
+    aiSubtitle:"আপনার কৃষি প্রশ্নের সহজ উত্তর।",
+    aiAssistantTitle:"কিষানমিত্র AI সহকারী",
+    assistantStatus:"কৃষি সহায়তা", yourQuestion:"আপনার প্রশ্ন",
+    questionPlaceholder:"আপনার কৃষি প্রশ্ন লিখুন...",
+    askAI:"কিষানমিত্র AI-কে জিজ্ঞাসা করুন",
+    aiDisclaimer:"AI-এর উত্তর শুধুমাত্র তথ্যের জন্য। গুরুত্বপূর্ণ ফসলের চিকিৎসার সিদ্ধান্ত স্থানীয় কৃষি বিশেষজ্ঞের সঙ্গে যাচাই করুন।",
+    footerDescription:"প্রযুক্তির মাধ্যমে কৃষকদের দরকারি কৃষি তথ্য পৌঁছে দেওয়া।",
+    quickLinks:"দ্রুত লিঙ্ক", more:"আরও",
+    copyright:"© 2026 কিষানমিত্র AI. উন্নত কৃষির জন্য।",
+    locationPlaceholder:"উদাহরণ: কলকাতা",
+    waitingWeather:"আবহাওয়ার তথ্যের অপেক্ষায়...",
+    weatherSource:"আবহাওয়ার তথ্য Open-Meteo থেকে।",
+    noData:"আবহাওয়ার তথ্য পাওয়া যায়নি",
+    searchError:"এই অবস্থান খুঁজে পাওয়া যায়নি।",
+    loadingWeather:"স্থানীয় আবহাওয়া লোড হচ্ছে...",
+    locationLoaded:"আবহাওয়ার তথ্য পাওয়া গেছে।",
+    gpsError:"অবস্থানের অনুমতি পাওয়া যায়নি। অবস্থানের নাম দিয়ে খুঁজুন।",
+    gpsLoading:"আপনার অবস্থান নেওয়া হচ্ছে...",
+    gpsUnsupported:"এই ব্রাউজারে GPS উপলব্ধ নয়।",
+    enterLocation:"শহর বা গ্রামের নাম লিখুন।",
+    enterArea:"সঠিক জমির পরিমাণ লিখুন।",
+    selectLocationFirst:"প্রথমে স্থানীয় আবহাওয়া লোড করুন।",
+    missingWeather:"প্রয়োজনীয় দৈনিক আবহাওয়ার তথ্য নেই।",
+    waterResult:"আনুমানিক জলের প্রয়োজন",
+    litres:"লিটার",
+    estimatedFor:"নির্বাচিত দিনের আনুমানিক সেচের জল।",
+    et0Label:"ET₀", kcLabel:"ফসলের সহগ (Kc)",
+    etcLabel:"ফসলের জল ব্যবহার (ETc)",
+    effectiveRainLabel:"কার্যকর বৃষ্টিপাত",
+    netIrrigationLabel:"নিট সেচের প্রয়োজন",
+    estimateNote:"এটি একটি আনুমানিক শিক্ষামূলক হিসাব, নিশ্চিত সেচ পরামর্শ নয়। মাটি, ফসলের জাত, আবহাওয়া ও সেচ পদ্ধতি অনুযায়ী প্রকৃত প্রয়োজন বদলাতে পারে।",
+    pestResultTitle:"ফসল পরীক্ষার ফলাফল", cropLabel:"ফসল",
+    symptomLabel:"দেখা লক্ষণ", weatherScreening:"আবহাওয়া পরীক্ষা",
+    moistureRisk:"আর্দ্রতা সম্পর্কিত কিছু ফসলের রোগের অনুকূল পরিস্থিতি থাকতে পারে।",
+    moistureAdvice:"পাতা ও কাণ্ড পরীক্ষা করুন। চিকিৎসার আগে কৃষি বিশেষজ্ঞের পরামর্শ নিন।",
+    humidityRisk:"বেশি আর্দ্রতার কারণে ফসল পর্যবেক্ষণ করা দরকার।",
+    humidityAdvice:"পাতার দাগ ও অন্যান্য লক্ষণ দেখুন।",
+    heatRisk:"গরম ও তুলনামূলক শুষ্ক আবহাওয়া।",
+    heatAdvice:"ফসলের তাপ ও জলের চাপ পর্যবেক্ষণ করুন।",
+    normalRisk:"সাধারণ আবহাওয়ার সতর্কতা পাওয়া যায়নি।",
+    normalAdvice:"ফসল নিয়মিত পরীক্ষা করুন। এর অর্থ এই নয় যে ফসলে পোকা নেই।",
+    insufficientRisk:"পর্যাপ্ত তথ্য নেই",
+    insufficientAdvice:"ফসল নিয়মিত পরীক্ষা করুন এবং কৃষি বিশেষজ্ঞের সঙ্গে যোগাযোগ করুন।",
+    warning:"শুধু আবহাওয়া ও লক্ষণ দিয়ে রোগ নিশ্চিত করা যায় না। চিকিৎসার আগে KVK বা কৃষি বিশেষজ্ঞের পরামর্শ নিন।",
+    aiWelcome:"নমস্কার! আমি কিষানমিত্র AI। ফসল, সেচ, আবহাওয়া ও কৃষি সম্পর্কে প্রশ্ন করুন।",
+    aiThinking:"উত্তর তৈরি হচ্ছে...",
+    aiError:"AI পরিষেবার সঙ্গে সংযোগ করা যায়নি। সার্ভার ও API সেটিং পরীক্ষা করুন।",
+    noQuestion:"অনুগ্রহ করে আপনার প্রশ্ন লিখুন।"
+}
+
+};
+
+
+/* =====================================
+   2. LANGUAGE SYSTEM
+===================================== */
+
+let selectedLanguage = "en";
+
+function t(key) {
+    return translations[selectedLanguage]?.[key] ??
+           translations.en[key] ??
+           key;
+}
+
+function changeLanguage(language) {
+
+    if (!translations[language]) {
+        language = "en";
+    }
+
+    selectedLanguage = language;
+
+    localStorage.setItem("kisanLanguage", language);
+
+    document.documentElement.lang = language;
+
+    document.getElementById("languageSelect").value = language;
+
+    document.querySelectorAll("[data-i18n]").forEach(element => {
+
+        const key = element.dataset.i18n;
+
+        if (translations[language][key]) {
+            element.textContent = translations[language][key];
+        }
+
+    });
+
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(element => {
+
+        const key = element.dataset.i18nPlaceholder;
+
+        if (translations[language][key]) {
+            element.placeholder = translations[language][key];
+        }
+
+    });
+
+    refreshDynamicResults();
+}
+
+
+/* =====================================
+   3. GLOBAL DATA
+===================================== */
+
+let currentWeather = null;
+let currentLocation = null;
+
+let waterSummary = "Not calculated yet";
+let pestSummary = "Not checked yet";
+
+let lastWaterData = null;
+let lastPestData = null;
+
+
+/* =====================================
+   4. LOCATION SEARCH
+===================================== */
+
+async function searchLocation() {
+
+    const name = document.getElementById("locationInput").value.trim();
+
+    if (!name) {
+        alert(t("enterLocation"));
+        return;
+    }
+
+    setLocationStatus("loadingWeather");
+
+    try {
+
+        const response = await fetch(
+            "/api/location?name=" + encodeURIComponent(name)
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || t("searchError"));
+        }
+
+        await loadWeather(data.latitude, data.longitude, data.name);
+
+    } catch (error) {
+
+        setLocationStatus(error.message);
+
+    }
+}
+
+
+function useGPS() {
+
+    if (!navigator.geolocation) {
+        setLocationStatus("gpsUnsupported");
+        return;
+    }
+
+    setLocationStatus("gpsLoading");
+
+    navigator.geolocation.getCurrentPosition(
+
+        async position => {
+
+            await loadWeather(
+                position.coords.latitude,
+                position.coords.longitude,
+                "Your current location"
+            );
+
+        },
+
+        () => {
+            setLocationStatus("gpsError");
+        }
+
+    );
+
+}
+
+
+function setLocationStatus(key) {
+
+    document.getElementById("locationStatus").textContent =
+        translations[selectedLanguage][key] || key;
+
+}
+
+
+/* =====================================
+   5. WEATHER DATA
+===================================== */
+
+async function loadWeather(lat, lon, name) {
+
+    setLocationStatus("loadingWeather");
+
+    try {
+
+        const response = await fetch(
+            `/api/weather?lat=${lat}&lon=${lon}`
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || t("noData"));
+        }
+
+        currentWeather = data;
+
+        currentLocation = {
+            name,
+            latitude: lat,
+            longitude: lon
+        };
+
+        displayWeather(data, name);
+
+        setLocationStatus("locationLoaded");
+
+    } catch (error) {
+
+        setLocationStatus(error.message);
+
+    }
+
+}
+
+
+function displayWeather(data, name) {
+
+    const current = data.current || {};
+    const daily = data.daily || {};
+
+    document.getElementById("weatherLocation").textContent = name;
+
+    document.getElementById("temperature").textContent =
+        current.temperature_2m ?? "--";
+
+    document.getElementById("humidity").textContent =
+        current.relative_humidity_2m != null
+            ? current.relative_humidity_2m + "%"
+            : "--";
+
+    document.getElementById("rainfall").textContent =
+        current.precipitation != null
+            ? current.precipitation + " mm"
+            : "--";
+
+    document.getElementById("wind").textContent =
+        current.wind_speed_10m != null
+            ? current.wind_speed_10m + " km/h"
+            : "--";
+
+    const et0 = daily.et0_fao_evapotranspiration?.[0];
+
+    document.getElementById("et0").textContent =
+        et0 != null ? et0.toFixed(1) + " mm" : "--";
+
+    document.getElementById("weatherDescription").textContent =
+        getWeatherDescription(current.weather_code);
+
+    document.getElementById("weatherUpdated").textContent =
+        t("weatherSource");
+
+}
+
+
+function getWeatherDescription(code) {
+
+    const descriptions = {
+        en: {
+            0:"Clear sky",1:"Mainly clear",2:"Partly cloudy",
+            3:"Overcast",45:"Foggy",48:"Foggy",
+            51:"Drizzle",53:"Drizzle",55:"Heavy drizzle",
+            61:"Rain",63:"Rain",65:"Heavy rain",
+            71:"Snow",73:"Snow",75:"Heavy snow",
+            80:"Rain showers",81:"Rain showers",82:"Heavy showers",
+            95:"Thunderstorm",96:"Thunderstorm",99:"Thunderstorm"
+        },
+        te: {
+            0:"ఆకాశం నిర్మలంగా ఉంది",1:"కొద్దిగా మేఘాలు",
+            2:"పాక్షికంగా మేఘావృతం",3:"మేఘావృతం",
+            45:"పొగమంచు",48:"పొగమంచు",
+            51:"తేలికపాటి జల్లులు",53:"జల్లులు",55:"భారీ జల్లులు",
+            61:"వర్షం",63:"వర్షం",65:"భారీ వర్షం",
+            71:"మంచు",73:"మంచు",75:"భారీ మంచు",
+            80:"వర్షపు జల్లులు",81:"వర్షపు జల్లులు",82:"భారీ వర్షపు జల్లులు",
+            95:"ఉరుములతో కూడిన వర్షం",96:"ఉరుములతో కూడిన వర్షం",99:"ఉరుములతో కూడిన వర్షం"
+        },
+        hi: {
+            0:"साफ आसमान",1:"हल्के बादल",2:"आंशिक बादल",
+            3:"बादल छाए हुए",45:"कोहरा",48:"कोहरा",
+            51:"हल्की बूंदाबांदी",53:"बूंदाबांदी",55:"तेज़ बूंदाबांदी",
+            61:"बारिश",63:"बारिश",65:"भारी बारिश",
+            71:"बर्फ",73:"बर्फ",75:"भारी बर्फ",
+            80:"बारिश की बौछार",81:"बारिश की बौछार",82:"तेज़ बौछार",
+            95:"आंधी-तूफान",96:"आंधी-तूफान",99:"आंधी-तूफान"
+        },
+        kn: {
+            0:"ಸ್ವಚ್ಛ ಆಕಾಶ",1:"ಸ್ವಲ್ಪ ಮೋಡ",2:"ಭಾಗಶಃ ಮೋಡ",
+            3:"ಮೋಡ ಕವಿದಿದೆ",45:"ಮಂಜು",48:"ಮಂಜು",
+            51:"ತುಂತುರು ಮಳೆ",53:"ತುಂತುರು ಮಳೆ",55:"ಭಾರಿ ತುಂತುರು ಮಳೆ",
+            61:"ಮಳೆ",63:"ಮಳೆ",65:"ಭಾರಿ ಮಳೆ",
+            71:"ಹಿಮ",73:"ಹಿಮ",75:"ಭಾರಿ ಹಿಮ",
+            80:"ಮಳೆಯ ಸಿಂಚನ",81:"ಮಳೆಯ ಸಿಂಚನ",82:"ಭಾರಿ ಮಳೆ",
+            95:"ಗುಡುಗು ಸಹಿತ ಮಳೆ",96:"ಗುಡುಗು ಸಹಿತ ಮಳೆ",99:"ಗುಡುಗು ಸಹಿತ ಮಳೆ"
+        },
+        ta: {
+            0:"தெளிவான வானம்",1:"சிறிதளவு மேகங்கள்",2:"பகுதியளவு மேகம்",
+            3:"மேகமூட்டம்",45:"மூடுபனி",48:"மூடுபனி",
+            51:"தூறல்",53:"தூறல்",55:"கனமான தூறல்",
+            61:"மழை",63:"மழை",65:"கனமழை",
+            71:"பனி",73:"பனி",75:"அதிக பனி",
+            80:"மழைத் தூறல்",81:"மழைத் தூறல்",82:"கனமான மழை",
+            95:"இடியுடன் மழை",96:"இடியுடன் மழை",99:"இடியுடன் மழை"
+        },
+        mr: {
+            0:"स्वच्छ आकाश",1:"थोडे ढग",2:"अंशतः ढगाळ",
+            3:"ढगाळ",45:"धुके",48:"धुके",
+            51:"रिमझिम पाऊस",53:"रिमझिम पाऊस",55:"जोरदार रिमझिम",
+            61:"पाऊस",63:"पाऊस",65:"मुसळधार पाऊस",
+            71:"बर्फ",73:"बर्फ",75:"जोरदार बर्फ",
+            80:"पावसाच्या सरी",81:"पावसाच्या सरी",82:"जोरदार सरी",
+            95:"मेघगर्जनेसह पाऊस",96:"मेघगर्जनेसह पाऊस",99:"मेघगर्जनेसह पाऊस"
+        },
+        bn: {
+            0:"পরিষ্কার আকাশ",1:"হালকা মেঘ",2:"আংশিক মেঘলা",
+            3:"মেঘাচ্ছন্ন",45:"কুয়াশা",48:"কুয়াশা",
+            51:"গুঁড়ি গুঁড়ি বৃষ্টি",53:"বৃষ্টি",55:"ভারী গুঁড়ি বৃষ্টি",
+            61:"বৃষ্টি",63:"বৃষ্টি",65:"ভারী বৃষ্টি",
+            71:"তুষার",73:"তুষার",75:"ভারী তুষার",
+            80:"বৃষ্টির ঝাপটা",81:"বৃষ্টির ঝাপটা",82:"ভারী বৃষ্টি",
+            95:"বজ্রঝড়",96:"বজ্রঝড়",99:"বজ্রঝড়"
+        }
+    };
+
+    return descriptions[selectedLanguage]?.[code] ||
+           descriptions.en[code] ||
+           t("noData");
+
+}
+
+
+/* =====================================
+   6. WATER CALCULATOR
+===================================== */
+
+const cropKc = {
+
+    rice:[0.70,1.05,1.20,0.90],
+    wheat:[0.30,0.70,1.15,0.40],
+    maize:[0.30,0.70,1.20,0.60],
+    cotton:[0.35,0.75,1.15,0.70],
+    sugarcane:[0.40,0.80,1.25,0.75],
+    groundnut:[0.40,0.75,1.15,0.60],
+    soybean:[0.40,0.80,1.15,0.50],
+    tomato:[0.60,0.80,1.15,0.80],
+    chilli:[0.60,0.80,1.10,0.80],
+    onion:[0.70,0.80,1.05,0.75],
+    potato:[0.50,0.75,1.15,0.75],
+    banana:[0.50,0.85,1.10,1.00],
+    chickpea:[0.40,0.70,1.00,0.40],
+    okra:[0.50,0.80,1.05,0.80]
+
+};
+
+
+function calculateWater() {
+
+    if (!currentWeather) {
+        alert(t("selectLocationFirst"));
+        return;
+    }
+
+    const crop = document.getElementById("crop").value;
+    const stage = Number(document.getElementById("stage").value);
+    const area = Number(document.getElementById("area").value);
+    const method = document.getElementById("method").value;
+
+    if (!Number.isFinite(area) || area <= 0) {
+        alert(t("enterArea"));
+        return;
+    }
+
+    const daily = currentWeather.daily || {};
+
+    const et0 = daily.et0_fao_evapotranspiration?.[0];
+    const rain = daily.precipitation_sum?.[0];
+
+    if (!Number.isFinite(et0) || !Number.isFinite(rain)) {
+        alert(t("missingWeather"));
+        return;
+    }
+
+    const kc = cropKc[crop][stage];
+
+    const etc = et0 * kc;
+
+    const effectiveRain = Math.min(etc, rain * 0.7);
+
+    const netWater = Math.max(0, etc - effectiveRain);
+
+    const efficiency = {
+        drip:0.90,
+        sprinkler:0.75,
+        surface:0.60
+    }[method];
+
+    const grossWater = netWater / efficiency;
+
+    const litres = grossWater * area * 4046.86;
+
+    lastWaterData = {
+        crop, stage, area, et0, rain, kc,
+        etc, effectiveRain, netWater, litres
+    };
+
+    waterSummary = `${Math.round(litres)} litres estimated for ${crop}, ${area} acres.`;
+
+    showWaterResult();
+
+}
+
+
+function showWaterResult() {
+
+    if (!lastWaterData) return;
+
+    const d = lastWaterData;
+
+    const result = document.getElementById("waterResult");
+
+    result.style.display = "block";
+
+    result.innerHTML = `
+        <h5 class="fw-bold">${t("waterResult")}</h5>
+
+        <div class="result-number">
+            ${Math.round(d.litres).toLocaleString("en-IN")} ${t("litres")}
+        </div>
+
+        <p>${t("estimatedFor")}</p>
+
+        <hr>
+
+        <p><b>${t("cropLabel")}:</b> ${t(d.crop)}</p>
+
+        <p><b>${t("et0Label")}:</b> ${d.et0.toFixed(2)} mm/day</p>
+
+        <p><b>${t("kcLabel")}:</b> ${d.kc}</p>
+
+        <p><b>${t("etcLabel")}:</b> ${d.etc.toFixed(2)} mm/day</p>
+
+        <p><b>${t("effectiveRainLabel")}:</b> ${d.effectiveRain.toFixed(2)} mm</p>
+
+        <p><b>${t("netIrrigationLabel")}:</b> ${d.netWater.toFixed(2)} mm</p>
+
+        <small class="text-secondary">${t("estimateNote")}</small>
+    `;
+
+}
+
+
+/* =====================================
+   7. PEST SCREENING
+===================================== */
+
+function diagnosePest() {
+
+    if (!currentWeather) {
+        alert(t("selectLocationFirst"));
+        return;
+    }
+
+    const crop = document.getElementById("pestCrop").value;
+    const symptom = document.getElementById("symptom").value;
+
+    const current = currentWeather.current || {};
+
+    const humidity = current.relative_humidity_2m;
+    const rain = current.precipitation;
+    const temp = current.temperature_2m;
+
+    let riskKey = "insufficientRisk";
+    let adviceKey = "insufficientAdvice";
+
+    if (
+        Number.isFinite(humidity) &&
+        Number.isFinite(rain) &&
+        Number.isFinite(temp)
+    ) {
+
+        if (humidity >= 85 && rain > 0) {
+
+            riskKey = "moistureRisk";
+            adviceKey = "moistureAdvice";
+
+        } else if (humidity >= 75) {
+
+            riskKey = "humidityRisk";
+            adviceKey = "humidityAdvice";
+
+        } else if (temp >= 32 && humidity < 50) {
+
+            riskKey = "heatRisk";
+            adviceKey = "heatAdvice";
+
+        } else {
+
+            riskKey = "normalRisk";
+            adviceKey = "normalAdvice";
+
+        }
+
+    }
+
+    const symptomKey = {
+        holes:"holes",
+        yellowing:"yellowing",
+        spots:"spots",
+        insects:"insects",
+        unknown:"unknown"
+    }[symptom];
+
+    lastPestData = {
+        crop,
+        symptomKey,
+        riskKey,
+        adviceKey
+    };
+
+    pestSummary = `${crop}: ${t(riskKey)}. ${t(symptomKey)}.`;
+
+    showPestResult();
+
+}
+
+
+function showPestResult() {
+
+    if (!lastPestData) return;
+
+    const d = lastPestData;
+
+    const result = document.getElementById("pestResult");
+
+    result.style.display = "block";
+
+    result.innerHTML = `
+        <h5 class="fw-bold">${t("pestResultTitle")}</h5>
+
+        <p><b>${t("cropLabel")}:</b> ${t(d.crop)}</p>
+
+        <p><b>${t("symptomLabel")}:</b> ${t(d.symptomKey)}</p>
+
+        <p><b>${t("weatherScreening")}:</b> ${t(d.riskKey)}</p>
+
+        <p>${t(d.adviceKey)}</p>
+
+        <div class="alert alert-warning mb-0">
+            ${t("warning")}
+        </div>
+    `;
+
+}
+
+
+/* =====================================
+   8. REFRESH DYNAMIC RESULTS
+===================================== */
+
+function refreshDynamicResults() {
+
+    if (currentWeather && currentLocation) {
+        displayWeather(currentWeather, currentLocation.name);
+    }
+
+    if (lastWaterData) {
+        showWaterResult();
+    }
+
+    if (lastPestData) {
+        showPestResult();
+    }
+
+}
+
+
+/* =====================================
+   9. AI CHAT
+===================================== */
+
+function addMessage(message, type) {
+
+    const chatArea = document.getElementById("chatArea");
+
+    const bubble = document.createElement("div");
+
+    bubble.className = "chat-message " +
+        (type === "user" ? "user-message" : "ai-message");
+
+    bubble.textContent = message;
+
+    chatArea.appendChild(bubble);
+
+    chatArea.scrollTop = chatArea.scrollHeight;
+
+}
+
+
+async function askAI() {
+
+    const input = document.getElementById("aiQuestion");
+    const button = document.getElementById("askButton");
+
+    const question = input.value.trim();
+
+    if (!question) {
+        alert(t("noQuestion"));
+        return;
+    }
+
+    addMessage(question, "user");
+
+    input.value = "";
+
+    button.disabled = true;
+
+    button.textContent = t("aiThinking");
+
+    try {
+
+        const response = await fetch("/api/ai", {
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify({
+
+                question:question,
+
+                language:selectedLanguage,
+
+                crop:document.getElementById("crop").value,
+
+                stage:document.getElementById("stage").selectedOptions[0].text,
+
+                location:currentLocation?.name || "Not selected",
+
+                weather:currentWeather,
+
+                water:waterSummary,
+
+                pest:pestSummary
+
+            })
+
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || "AI request failed.");
+        }
+
+        addMessage(
+            data.answer || data.output_text || "No answer was returned.",
+            "ai"
+        );
+
+    } catch (error) {
+
+        addMessage(t("aiError") + " " + error.message, "ai");
+
+    } finally {
+
+        button.disabled = false;
+
+        button.textContent = t("askAI");
+
+    }
+
+}
+
+
+/* ENTER TO SEND */
+
+document.getElementById("aiQuestion").addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter" && !event.shiftKey) {
+
+        event.preventDefault();
+
+        askAI();
+
+    }
+
+});
+
+
+/* =====================================
+   10. INITIALIZE LANGUAGE
+===================================== */
+
+const savedLanguage = localStorage.getItem("kisanLanguage") || "en";
+
+changeLanguage(savedLanguage);
+
+</script>
+
+</body>
+</html>
